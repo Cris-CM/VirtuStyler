@@ -1,7 +1,6 @@
-import 'package:easy_padding/easy_padding.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:virtustyler/core/colors/palette.dart';
+ import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+ import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/button_welcome.dart';
 import 'package:virtustyler/core/widgets/custom_texts.dart';
 
@@ -62,10 +61,10 @@ class WelcomePage extends StatelessWidget {
                         buttonColor: Palette.purple,
                       ),
                     ],
-                  ).only(bottom: 30),
+                  ).marginOnly(bottom: 30),
                   TextButton(
                     onPressed: () {
-                      context.go('/login');
+                     Get.toNamed('/login');
                     },
                     child: const CustomText(
                       text: 'Skip',

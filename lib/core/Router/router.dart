@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:virtustyler/Features/Auth/Presentation/welcome_page.dart';
 import 'package:virtustyler/Features/Auth/Views/login_page.dart';
 import 'package:virtustyler/Features/Home/Views/scan_page.dart';
+import 'package:virtustyler/Features/Home/home_page.dart';
 
 final getRouter = <GetPage>[
   GetPage(

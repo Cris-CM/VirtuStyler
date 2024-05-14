@@ -1,6 +1,6 @@
-import 'package:easy_padding/easy_padding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_texts.dart';
@@ -83,7 +83,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            ).only(bottom: 40),
+            ).marginOnly(bottom: 40),
             Container(
               height: 40.h,
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 30),
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                           text: 'Hoy, 1 de enero',
                           fontSize: 30,
                           color: Palette.blueBlack,
-                        ).only(bottom: 20),
+                        ).marginOnly(bottom: 20),
                         const CustomText(
                           text: 'Clima',
                           fontSize: 23,
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                           fontSize: 33,
                           fontWeight: FontWeight.bold,
                           color: Palette.blueBlack,
-                        ).only(bottom: 30),
+                        ).marginOnly(bottom: 30),
                         const CustomText(
                           text: 'Probabilidad\nde precipitación',
                           fontSize: 25,

@@ -2,6 +2,8 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 import 'package:get/get.dart';
+import 'package:virtustyler/core/Router/router.dart';
+
 List<CameraDescription>? cameras;
 
 Future<void> main() async {
@@ -20,8 +22,9 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) {
         return GetMaterialApp(
           title: 'VirtuStyler',
-          initialRoute: "/login",
+          initialRoute: "/welcome",
           debugShowCheckedModeBanner: false,
+          getPages: getRouter,
         );
       },
     );

@@ -4,7 +4,7 @@ import 'dart:isolate';
 import 'package:camera/camera.dart';
 import 'package:image/image.dart' as imageLib;
 import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:virtustyler/Features/Home/Views/clasifier.dart';
+import 'package:virtustyler/Home/Views/clasifier.dart';
 
 class IsolateUtils {
   static const String DEBUG_NAME = "InferenceIsolate";

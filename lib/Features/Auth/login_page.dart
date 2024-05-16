@@ -1,8 +1,8 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
- import 'package:virtustyler/core/colors/palette.dart';
+import 'package:virtustyler/core/colors/palette.dart';
 
-import '../../../core/widgets/textFields/text_imput.dart';
+import '../../core/widgets/textFields/text_imput.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -117,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                 String usuario = usuarioController.text.trim();
                 String contrasena = contraController.text.trim();
                 if (usuario == 'admin' && contrasena == 'admin') {
-                   Get.toNamed("/home"); 
+                  Get.toNamed("/home");
                 }
               },
               child: const Text(

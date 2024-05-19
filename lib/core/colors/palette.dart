@@ -10,4 +10,5 @@ class Palette {
   static const blueBlack = Color(0XFF040D3D);
   static const whiteOpacity = Color(0XFF8F959E);
   static const white = Colors.white;
+  static const purple = Color(0XFF9775FA);
 }

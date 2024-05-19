@@ -89,13 +89,17 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: Column(
                       children: [
-                        const ButtonWelcome(
-                          buttonText: 'Registrarse',
+                        ButtonWelcome(
+                          buttonText: 'Ingresar',
+                          onPressed: () {
+                            Get.toNamed("/home");
+                          },
                           textColor: Palette.white,
                         ).marginOnly(bottom: 50),
-                        const ButtonWelcome(
+                        ButtonWelcome(
                           buttonText: 'Iniciar Session',
                           textColor: Palette.white,
+                          onPressed: () {},
                         ),
                       ],
                     ),

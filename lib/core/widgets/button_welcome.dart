@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_texts.dart';
 
@@ -8,11 +9,14 @@ class ButtonWelcome extends StatelessWidget {
     required this.buttonText,
     this.buttonColor = Palette.brown,
     required this.textColor,
+    required this.onPressed,
   });
 
   final String buttonText;
   final Color textColor;
   final Color buttonColor;
+  final VoidCallback onPressed;
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -27,7 +31,7 @@ class ButtonWelcome extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: CustomText(
         text: buttonText,
         color: textColor,

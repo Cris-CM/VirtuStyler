@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       builder: (context, orientation, deviceType) {
         return GetMaterialApp(
           title: 'VirtuStyler',
-          initialRoute: "/welcome",
+          initialRoute: "/login",
           debugShowCheckedModeBanner: false,
           getPages: getRouter,
         );

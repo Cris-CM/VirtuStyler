@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
+import 'package:virtustyler/core/widgets/button_welcome.dart';
+import 'package:virtustyler/core/widgets/custom_texts.dart';
 
 import '../../core/widgets/textFields/text_imput.dart';
 
@@ -19,127 +22,87 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.black34,
+      backgroundColor: Palette.mostWhite,
       body: Padding(
-        padding:
-            const EdgeInsetsDirectional.symmetric(horizontal: 40, vertical: 80),
+        padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
           children: [
-            const Column(
-              children: [
-                Text(
-                  'Bienvenido',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 50,
-                      color: Colors.white),
-                ),
-                Text(
-                  'Por favor ingresa tus datos para continuar',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white54,
-                  ),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 60,
-            ),
             Column(
               children: [
-                TextImput(
-                  labeltext: 'Usuario',
-                  hinttext: 'Usuario',
-                  obscureText: false,
-                  controller: usuarioController,
-                ),
-                TextImput(
-                  labeltext: 'Contraseña',
-                  hinttext: 'Contraseña',
-                  obscureText: true,
-                  controller: contraController,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        '¿Has olvidado tu contraseña?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.red,
-                        ),
-                        textAlign: TextAlign.end,
-                      ),
-                    ),
-                  ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      'Recordar contraseña',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.white),
-                    ),
-                    Spacer(),
-                    Icon(
-                      Icons.toggle_on_outlined,
-                      color: Colors.white,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 60,
-            ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor:
-                    const MaterialStatePropertyAll(Palette.whiteOpacity),
-                minimumSize: const MaterialStatePropertyAll(Size(200, 100)),
-                shape: MaterialStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              ),
-              onPressed: () {
-                String usuario = usuarioController.text.trim();
-                String contrasena = contraController.text.trim();
-                if (usuario == 'admin' && contrasena == 'admin') {
-                  Get.toNamed("/home");
-                }
-              },
-              child: const Text(
-                'Ingresar',
-                style: TextStyle(
-                  fontSize: 25,
+                Image.asset(
+                  'assets/images/logo.png',
+                  fit: BoxFit.cover,
+                ).marginOnly(bottom: 20),
+                const CustomText(
+                  text: 'VIRTU\nStyler',
                   color: Palette.black,
-                ),
-              ),
-            ).marginOnly(bottom: 20),
-            const Column(
-              children: [
-                Text(
-                  'Por favor escribe tu correo electrónico para recibir un código de confirmación para establecer una nueva contraseña',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white70,
-                  ),
+                  fontSize: 50,
                 ),
               ],
             ),
+            Container(
+              padding: const EdgeInsets.only(left: 50, top: 20, right: 50),
+              height: 70.h,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                color: Palette.whiteGrey,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(80),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomText(
+                    text: 'Registrarse',
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Palette.black,
+                  ).marginOnly(bottom: 20),
+                  const CustomText(
+                    text: 'nombres',
+                    color: Palette.whiteOpacity,
+                  ),
+                  const TextImput(
+                    hinttext: 'Escribe tu nombre',
+                    obscureText: false,
+                    showEyeIcon: false,
+                  ).marginOnly(bottom: 25),
+                  const CustomText(
+                    text: 'Correo Electronico',
+                    color: Palette.whiteOpacity,
+                  ),
+                  const TextImput(
+                    hinttext: 'Escribe tu correo',
+                    obscureText: false,
+                    showEyeIcon: false,
+                  ).marginOnly(bottom: 25),
+                  const CustomText(
+                    text: 'Password',
+                    color: Palette.whiteOpacity,
+                  ),
+                  const TextImput(
+                    hinttext: 'Escribe una contraseña de 8 digitos',
+                    obscureText: false,
+                    limitToEightCharacters: true,
+                  ).marginOnly(bottom: 50),
+                  Center(
+                    child: Column(
+                      children: [
+                        const ButtonWelcome(
+                          buttonText: 'Registrarse',
+                          textColor: Palette.white,
+                        ).marginOnly(bottom: 50),
+                        const ButtonWelcome(
+                          buttonText: 'Iniciar Session',
+                          textColor: Palette.white,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

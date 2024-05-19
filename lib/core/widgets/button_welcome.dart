@@ -6,7 +6,7 @@ class ButtonWelcome extends StatelessWidget {
   const ButtonWelcome({
     super.key,
     required this.buttonText,
-    this.buttonColor = Palette.black34,
+    this.buttonColor = Palette.brown,
     required this.textColor,
   });
 
@@ -18,10 +18,12 @@ class ButtonWelcome extends StatelessWidget {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(buttonColor),
-        minimumSize: const MaterialStatePropertyAll(Size(200, 100)),
+        minimumSize: const MaterialStatePropertyAll(
+          Size(390, 70),
+        ),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(40),
           ),
         ),
       ),

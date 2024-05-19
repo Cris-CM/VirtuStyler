@@ -5,10 +5,10 @@ import 'package:virtustyler/Features/Views/home_page.dart';
 import 'package:virtustyler/Features/Views/outfits_pages.dart';
 
 final getRouter = <GetPage>[
-  GetPage(
-    name: "/welcome",
-    page: () => const WelcomePage(),
-  ),
+  // GetPage(
+  //   name: "/welcome",
+  //   page: () => const WelcomePage(),
+  // ),
   GetPage(
     name: "/login",
     page: () => const LoginPage(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:virtustyler/core/colors/palette.dart';
 
 class CustomText extends StatelessWidget {
   final String text;
@@ -10,7 +11,7 @@ class CustomText extends StatelessWidget {
   const CustomText({
     super.key,
     required this.text,
-    required this.color,
+    this.color = Palette.black,
     this.fontSize = 20,
     this.fontWeight = FontWeight.normal,
     this.alignment = CustomTextAlignment.left,

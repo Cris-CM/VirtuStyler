@@ -1,8 +1,7 @@
 import 'package:get/get.dart';
-import 'package:virtustyler/Features/Auth/Presentation/sign_In_page.dart';
+import 'package:virtustyler/Features/Auth/Presentation/sign_page.dart';
 import 'package:virtustyler/Features/Auth/login_page.dart';
 import 'package:virtustyler/Features/Views/home_page.dart';
-import 'package:virtustyler/Features/Views/outfits_pages.dart';
 
 final getRouter = <GetPage>[
   // GetPage(
@@ -20,9 +19,5 @@ final getRouter = <GetPage>[
   GetPage(
     name: "/home",
     page: () => const HomePage(),
-  ),
-  GetPage(
-    name: "/list_outfits",
-    page: () => const OutfitsPage(),
   ),
 ];

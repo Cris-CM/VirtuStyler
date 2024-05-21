@@ -118,8 +118,9 @@ class _HomePageState extends State<HomePage> {
                             text: 'Bienvenido a VirtuStyler',
                             fontSize: 27,
                           ).marginOnly(bottom: 30),
-                          const TextImput(
+                          TextImput(
                             hinttext: 'Search...',
+                            width: 50.h,
                             obscureText: false,
                             showSearchIcon: true,
                           ).marginOnly(bottom: 30),
@@ -193,6 +194,7 @@ class _HomePageState extends State<HomePage> {
                   height: 90.h,
                   color: Palette.white,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       const Icon(
                         Icons.menu,

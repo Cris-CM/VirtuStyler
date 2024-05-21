@@ -12,4 +12,5 @@ class Palette {
   static const whiteOpacity = Color(0XFF8F959E);
   static const white = Colors.white;
   static const darkGreen = Color(0XFF4E8D7C);
+  static const red = Colors.red;
 }

@@ -32,9 +32,9 @@ class _SignInPageState extends State<SignInPage> {
         'Por favor, complete todos los campos.',
         snackPosition: SnackPosition.BOTTOM,
         duration: const Duration(seconds: 5),
-        backgroundColor: Colors.red,
+        backgroundColor: Palette.red,
         instantInit: true,
-        colorText: Colors.white,
+        colorText: Palette.white,
       );
       return;
     }

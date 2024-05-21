@@ -12,6 +12,7 @@ class TextImput extends StatefulWidget {
     this.limitToEightCharacters = false,
     this.showEyeIcon = false,
     this.showSearchIcon = false,
+    this.width = double.infinity,
   });
 
   final String hinttext;
@@ -20,6 +21,7 @@ class TextImput extends StatefulWidget {
   final bool limitToEightCharacters;
   final bool showEyeIcon;
   final bool showSearchIcon;
+  final double? width;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -39,6 +41,7 @@ class _TextImputState extends State<TextImput> {
   Widget build(BuildContext context) {
     return Container(
       height: 6.h,
+      width: widget.width ?? double.infinity,
       padding: const EdgeInsets.only(left: 10, right: 10),
       decoration: BoxDecoration(
         color: Palette.white,

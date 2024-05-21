@@ -9,21 +9,21 @@ class ButtonWelcome extends StatelessWidget {
     this.buttonColor = Palette.brown,
     required this.textColor,
     required this.onPressed,
+    this.minimumSize = const Size(390, 70),
   });
 
   final String buttonText;
   final Color textColor;
   final Color buttonColor;
   final VoidCallback onPressed;
+  final Size minimumSize;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(buttonColor),
-        minimumSize: const MaterialStatePropertyAll(
-          Size(390, 70),
-        ),
+        minimumSize: MaterialStatePropertyAll(minimumSize),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(40),

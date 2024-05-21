@@ -15,6 +15,45 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
+  TextEditingController usuarioController = TextEditingController();
+
+  TextEditingController contraController = TextEditingController();
+
+  final String defaulUsername = 'admin';
+  final String defaulContra = 'admin';
+
+  void validateAndSubmit() {
+    final usuario = usuarioController.text.trim();
+    final contra = contraController.text.trim();
+
+    if (usuario.isEmpty || contra.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Por favor, complete todos los campos.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
+        backgroundColor: Colors.red,
+        instantInit: true,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    if (usuario == defaulUsername && contra == defaulContra) {
+      Get.toNamed("home");
+    } else {
+      Get.snackbar(
+        'Error',
+        'Por favor, complete todos los campos.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 5),
+        backgroundColor: Colors.red,
+        instantInit: true,
+        colorText: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +99,9 @@ class _SignInPageState extends State<SignInPage> {
                     text: 'Correo Electronico',
                     color: Palette.whiteOpacity,
                   ),
-                  const TextImput(
+                  TextImput(
                     hinttext: 'Escribe tu correo',
+                    controller: usuarioController,
                     obscureText: false,
                     showEyeIcon: false,
                   ).marginOnly(bottom: 25),
@@ -69,9 +109,11 @@ class _SignInPageState extends State<SignInPage> {
                     text: 'Password',
                     color: Palette.whiteOpacity,
                   ),
-                  const TextImput(
+                  TextImput(
                     hinttext: 'Ingrese una contraseña',
-                    obscureText: false,
+                    controller: contraController,
+                    obscureText: true,
+                    showEyeIcon: true,
                     limitToEightCharacters: true,
                   ).marginOnly(bottom: 50),
                   Center(
@@ -79,15 +121,13 @@ class _SignInPageState extends State<SignInPage> {
                       children: [
                         ButtonWelcome(
                           buttonText: 'Ingresar',
-                          onPressed: () {
-                            Get.toNamed("/home");
-                          },
+                          onPressed: validateAndSubmit,
                           textColor: Palette.white,
                         ).marginOnly(bottom: 50),
                         ButtonWelcome(
                           buttonText: 'Iniciar Session',
                           textColor: Palette.white,
-                          onPressed: () {},
+                          onPressed: validateAndSubmit,
                         ),
                       ],
                     ),

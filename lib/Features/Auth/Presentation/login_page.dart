@@ -5,7 +5,7 @@ import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/button_welcome.dart';
 import 'package:virtustyler/core/widgets/custom_texts.dart';
 
-import '../../core/widgets/textFields/text_imput.dart';
+import '../../../core/widgets/textFields/text_imput.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -83,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const TextImput(
                     hinttext: 'Escribe una contraseña de 8 digitos',
+                    showEyeIcon: true,
                     obscureText: false,
                     limitToEightCharacters: true,
                   ).marginOnly(bottom: 50),
@@ -90,15 +91,17 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                         ButtonWelcome(
-                          buttonText: 'Ingresar',
-                          onPressed: () {},
+                          buttonText: 'Registrarse',
+                          onPressed: () {
+                            Get.toNamed("/selecGender");
+                          },
                           textColor: Palette.white,
                         ).marginOnly(bottom: 50),
                         ButtonWelcome(
                           buttonText: 'Iniciar Session',
                           textColor: Palette.white,
                           onPressed: () {
-                            Get.toNamed("/signPage");
+                            Get.toNamed("/signIn");
                           },
                         ),
                       ],

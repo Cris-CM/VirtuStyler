@@ -1,3 +1,4 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_drawer/flutter_3d_drawer.dart';
 import 'package:get/get.dart';
@@ -30,38 +31,48 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.whiteGrey,
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor:
-            Palette.black, // Color de fondo del BottomNavigationBar
-        selectedItemColor: Palette.white, // Color de ícono seleccionado
-        unselectedItemColor: Palette.white, // Color de ícono no seleccionado
-        currentIndex: selectedIndex,
-        onTap: _onItemTapped,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            backgroundColor: Palette.blackOpacity,
-            icon: Icon(Icons.home),
-            label: 'home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner_sharp),
-            label: 'Escanear/Pago',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_sharp),
-            label: 'Comprar',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: 'favoritos',
-          ),
+      backgroundColor: const Color.fromRGBO(234, 234, 234, 1),
+      bottomNavigationBar: ConvexAppBar(
+        items: const [
+          TabItem(icon: Icons.home, title: 'Home'),
+          TabItem(icon: Icons.qr_code_scanner_sharp, title: 'Escanear/Pago'),
+          TabItem(icon: Icons.shopping_bag_sharp, title: 'Comprar'),
+          TabItem(icon: Icons.person, title: 'Perfil'),
+          TabItem(icon: Icons.favorite, title: 'Favoritos'),
         ],
+        onTap: (int i) => print('click index=$i'),
       ),
+      // BottomNavigationBar(
+      //   backgroundColor:
+      //       Palette.black, // Color de fondo del BottomNavigationBar
+      //   selectedItemColor: Palette.white, // Color de ícono seleccionado
+      //   unselectedItemColor: Palette.white, // Color de ícono no seleccionado
+      //   currentIndex: selectedIndex,
+      //   onTap: _onItemTapped,
+      //   items: const <BottomNavigationBarItem>[
+      //     BottomNavigationBarItem(
+      //       backgroundColor: Palette.blackOpacity,
+      //       icon: Icon(Icons.home),
+      //       label: 'home',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.qr_code_scanner_sharp),
+      //       label: 'Escanear/Pago',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.shopping_bag_sharp),
+      //       label: 'Comprar',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: 'Perfil',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.favorite),
+      //       label: 'favoritos',
+      //     ),
+      //   ],
+      // ),
       body: ListView(
         children: [
           Column(
@@ -97,9 +108,14 @@ class _HomePageState extends State<HomePage> {
                             'assets/images/logo.png',
                             fit: BoxFit.cover,
                           ),
-                          const Icon(
-                            Icons.shopping_bag_outlined,
-                            size: 50,
+                          IconButton(
+                            onPressed: () {
+                              Get.toNamed("/perfil");
+                            },
+                            icon: const Icon(
+                              Icons.shopping_bag_outlined,
+                              size: 50,
+                            ),
                           ),
                         ],
                       ),

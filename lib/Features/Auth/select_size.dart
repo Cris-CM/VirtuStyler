@@ -65,28 +65,36 @@ class SelecSize extends StatelessWidget {
                     buttonText: 'S',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/signIn");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
                   ButtonWelcome(
                     buttonText: 'M',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/signIn");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
                   ButtonWelcome(
                     buttonText: 'L',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/signIn");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
                   ButtonWelcome(
                     buttonText: 'XL',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/signIn");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 110),
                   ButtonWelcome(

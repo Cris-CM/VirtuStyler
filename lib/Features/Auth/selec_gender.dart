@@ -65,21 +65,27 @@ class SelecGender extends StatelessWidget {
                     buttonText: 'Hombre',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(230, 100),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/selecSize");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 70),
                   ButtonWelcome(
                     buttonText: 'Mujer',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(230, 100),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/selecSize");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 70),
                   ButtonWelcome(
                     buttonText: 'Ambos',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(230, 100),
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed("/selecSize");
+                    },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 120),
                   ButtonWelcome(

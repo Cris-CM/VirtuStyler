@@ -44,6 +44,8 @@ dependencies:
   image: ^3.0.2
   image_picker: ^1.1.1
   flutter_3d_drawer: 0.0.1
+  convex_bottom_bar: ^3.2.0
+
 
 
 dev_dependencies:

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
 import '../colors/palette.dart';
-import 'custom_texts.dart';
 
 class ListOutfits extends StatelessWidget {
   const ListOutfits({super.key});
@@ -30,16 +30,16 @@ class ListOutfits extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomText(
-                  text: 'Nike Sportswear Club ',
+                Texts.regular(
+                  'Nike Sportswear Club ',
                   fontSize: 25,
                 ),
-                CustomText(
-                  text: 'Fleece',
+                Texts.regular(
+                  'Fleece',
                   fontSize: 20,
                 ),
-                CustomText(
-                  text: '\$/. 100',
+                Texts.regular(
+                  '\$/. 100',
                   fontSize: 25,
                 ),
               ],

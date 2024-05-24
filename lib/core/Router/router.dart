@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+import 'package:virtustyler/Features/Auth/Controllers/auth_binding.dart';
 import 'package:virtustyler/Features/Auth/perfil_page.dart';
 import 'package:virtustyler/Features/Auth/selec_gender.dart';
 import 'package:virtustyler/Features/Auth/select_size.dart';
-import 'package:virtustyler/Features/Auth/Presentation/sign_page.dart';
-import 'package:virtustyler/Features/Auth/Presentation/login_page.dart';
-import 'package:virtustyler/Features/Views/home_page.dart';
+import 'package:virtustyler/Features/Auth/Views/login_view.dart';
+import 'package:virtustyler/Features/Auth/Views/register_view.dart';
+import 'package:virtustyler/Features/Home/Views/home_page.dart';
 
 final getRouter = <GetPage>[
   // GetPage(
@@ -13,7 +14,8 @@ final getRouter = <GetPage>[
   // ),
   GetPage(
     name: "/login",
-    page: () => const LoginPage(),
+    page: () => const LoginView(),
+    binding: AuthBinding(),
   ),
   GetPage(
     name: "/selecGender",
@@ -25,7 +27,7 @@ final getRouter = <GetPage>[
   ),
   GetPage(
     name: "/signIn",
-    page: () => const SignInPage(),
+    page: () => const RegisterView(),
   ),
   GetPage(
     name: "/home",

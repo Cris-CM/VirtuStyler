@@ -1,23 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
 import 'package:virtustyler/core/colors/palette.dart';
-import 'package:virtustyler/core/widgets/button_welcome.dart';
-import 'package:virtustyler/core/widgets/custom_texts.dart';
+import 'package:virtustyler/core/widgets/custom_button.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
-import '../../../core/widgets/textFields/text_imput.dart';
+import '../../../core/widgets/custom_input.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController usuarioController = TextEditingController();
-
-  TextEditingController contraController = TextEditingController();
+class RegisterView extends GetView<AuthController> {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +25,11 @@ class _LoginPageState extends State<LoginPage> {
                   'assets/images/logo.png',
                   fit: BoxFit.cover,
                 ).marginOnly(bottom: 20),
-                const CustomText(
-                  text: 'VIRTU\n Styler',
+                const Texts.regular(
+                  'VIRTU\n Styler',
                   color: Palette.black,
                   fontSize: 50,
+                  fontFamily: "Alegreya",
                 ),
               ],
             ),
@@ -53,51 +46,44 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CustomText(
-                    text: 'Registrarse',
+                  const Texts.bold(
+                    'Registrarse',
                     fontSize: 40,
-                    fontWeight: FontWeight.bold,
                     color: Palette.black,
                   ).marginOnly(bottom: 20),
-                  const CustomText(
-                    text: 'nombres',
+                  const Texts.regular(
+                    'nombres',
                     color: Palette.whiteOpacity,
                   ),
-                  const TextImput(
+                  const CustomInput(
                     hinttext: 'Escribe tu nombre',
-                    obscureText: false,
-                    showEyeIcon: false,
                   ).marginOnly(bottom: 25),
-                  const CustomText(
-                    text: 'Correo Electronico',
+                  const Texts.regular(
+                    'Correo Electronico',
                     color: Palette.whiteOpacity,
                   ),
-                  const TextImput(
+                  const CustomInput(
                     hinttext: 'Escribe tu correo',
-                    obscureText: false,
-                    showEyeIcon: false,
                   ).marginOnly(bottom: 25),
-                  const CustomText(
-                    text: 'Password',
+                  const Texts.regular(
+                    'Password',
                     color: Palette.whiteOpacity,
                   ),
-                  const TextImput(
+                  const CustomInput(
                     hinttext: 'Escribe una contraseña de 8 digitos',
-                    showEyeIcon: true,
-                    obscureText: false,
                     limitToEightCharacters: true,
                   ).marginOnly(bottom: 50),
                   Center(
                     child: Column(
                       children: [
-                        ButtonWelcome(
+                        CustomButton(
                           buttonText: 'Registrarse',
                           onPressed: () {
                             Get.toNamed("/selecGender");
                           },
                           textColor: Palette.white,
                         ).marginOnly(bottom: 50),
-                        ButtonWelcome(
+                        CustomButton(
                           buttonText: 'Iniciar Session',
                           textColor: Palette.white,
                           onPressed: () {

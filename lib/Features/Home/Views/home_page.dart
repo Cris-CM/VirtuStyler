@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import 'package:virtustyler/core/colors/palette.dart';
-import 'package:virtustyler/core/widgets/custom_texts.dart';
 import 'package:virtustyler/core/widgets/icon_and_text.dart';
 import 'package:virtustyler/core/widgets/list_outits.dart';
-import 'package:virtustyler/core/widgets/textFields/text_imput.dart';
+import 'package:virtustyler/core/widgets/custom_input.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -125,23 +125,22 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const CustomText(
-                            text: 'Lalo!',
+                          const Texts.bold(
+                            'Lalo!',
                             fontSize: 40,
-                            fontWeight: FontWeight.bold,
                           ),
-                          const CustomText(
-                            text: 'Bienvenido a VirtuStyler',
+                          const Texts.regular(
+                            'Bienvenido a VirtuStyler',
                             fontSize: 27,
                           ).marginOnly(bottom: 30),
-                          TextImput(
+                          CustomInput(
                             hinttext: 'Search...',
                             width: 50.h,
                             obscureText: false,
                             showSearchIcon: true,
                           ).marginOnly(bottom: 30),
-                          const CustomText(
-                            text: 'Elige una prenda',
+                          const Texts.regular(
+                            'Elige una prenda',
                             fontSize: 27,
                           ),
                           Container(
@@ -166,8 +165,8 @@ class _HomePageState extends State<HomePage> {
                                         'assets/icons/camisa.png',
                                         fit: BoxFit.cover,
                                       ).marginOnly(right: 10),
-                                      const CustomText(
-                                        text: 'camisa',
+                                      const Texts.regular(
+                                        'camisa',
                                         fontSize: 22,
                                         color: Palette.blueBlack,
                                       ),
@@ -177,8 +176,8 @@ class _HomePageState extends State<HomePage> {
                               },
                             ),
                           ),
-                          const CustomText(
-                            text: 'Tendencias actualizadas',
+                          const Texts.regular(
+                            'Tendencias actualizadas',
                             fontSize: 27,
                           ),
                           Container(
@@ -225,12 +224,12 @@ class _HomePageState extends State<HomePage> {
                             color: Palette.white,
                           ),
                         ),
-                        title: const CustomText(
-                          text: 'Lalo',
+                        title: const Texts.regular(
+                          'Lalo',
                           fontSize: 30,
                         ),
-                        subtitle: const CustomText(
-                          text: 'Perfil Verificado',
+                        subtitle: const Texts.regular(
+                          'Perfil Verificado',
                           fontSize: 20,
                         ),
                         trailing: Container(
@@ -239,8 +238,8 @@ class _HomePageState extends State<HomePage> {
                             borderRadius: BorderRadius.circular(20),
                             color: Palette.whiteGrey,
                           ),
-                          child: const CustomText(
-                            text: '3 Orders',
+                          child: const Texts.regular(
+                            '3 Orders',
                             fontSize: 15,
                             color: Palette.blueBlack,
                           ),

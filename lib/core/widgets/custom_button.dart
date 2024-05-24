@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:virtustyler/core/colors/palette.dart';
-import 'package:virtustyler/core/widgets/custom_texts.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
-class ButtonWelcome extends StatelessWidget {
-  const ButtonWelcome({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
     required this.buttonText,
     this.buttonColor = Palette.brown,
@@ -31,10 +31,10 @@ class ButtonWelcome extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: CustomText(
-        text: buttonText,
+      child: Texts.regular(
+        buttonText,
         color: textColor,
-        fontSize: 33,
+        fontSize: 14,
       ),
     );
   }

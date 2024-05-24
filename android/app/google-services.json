@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "524064964142",
+    "project_id": "virtustyler",
+    "storage_bucket": "virtustyler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524064964142:android:b77970fa56bf5672cb69bf",
+        "android_client_info": {
+          "package_name": "com.example.virtustyler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCjA7-ia13UlNx4O4VqZxLB_0ezy8Wes8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

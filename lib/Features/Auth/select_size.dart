@@ -3,9 +3,8 @@ import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/utils.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
-import 'package:virtustyler/core/widgets/button_welcome.dart';
-
-import '../../core/widgets/custom_texts.dart';
+import 'package:virtustyler/core/widgets/custom_button.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
 class SelecSize extends StatelessWidget {
   const SelecSize({super.key});
@@ -37,10 +36,9 @@ class SelecSize extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const CustomText(
-                    text: 'Seleccione su genero',
+                  const Texts.regular(
+                    'Seleccione su genero',
                     fontSize: 30,
-                    alignment: CustomTextAlignment.center,
                   ),
                   Container(
                     width: 40.h,
@@ -61,7 +59,7 @@ class SelecSize extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ButtonWelcome(
+                  CustomButton(
                     buttonText: 'S',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
@@ -70,7 +68,7 @@ class SelecSize extends StatelessWidget {
                     },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
-                  ButtonWelcome(
+                  CustomButton(
                     buttonText: 'M',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
@@ -79,7 +77,7 @@ class SelecSize extends StatelessWidget {
                     },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
-                  ButtonWelcome(
+                  CustomButton(
                     buttonText: 'L',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
@@ -88,7 +86,7 @@ class SelecSize extends StatelessWidget {
                     },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 40),
-                  ButtonWelcome(
+                  CustomButton(
                     buttonText: 'XL',
                     buttonColor: Palette.darkGreen,
                     minimumSize: const Size(200, 80),
@@ -97,7 +95,7 @@ class SelecSize extends StatelessWidget {
                     },
                     textColor: Palette.white,
                   ).marginOnly(bottom: 110),
-                  ButtonWelcome(
+                  CustomButton(
                     buttonText: 'Confirmar',
                     textColor: Palette.white,
                     onPressed: () {

@@ -1,288 +1,188 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_drawer/flutter_3d_drawer.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
+import 'package:virtustyler/Features/Home/Widgets/category_item.dart';
 
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/icon_and_text.dart';
-import 'package:virtustyler/core/widgets/list_outits.dart';
+import 'package:virtustyler/Features/Home/Widgets/product_item.dart';
 import 'package:virtustyler/core/widgets/custom_input.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends GetView<HomeController> {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int selectedIndex = 0;
-
-  DrawerControl drawerControl = DrawerControl();
-
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(234, 234, 234, 1),
-      bottomNavigationBar: ConvexAppBar(
-        items: const [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.qr_code_scanner_sharp, title: 'Escanear/Pago'),
-          TabItem(icon: Icons.shopping_bag_sharp, title: 'Comprar'),
-          TabItem(icon: Icons.person, title: 'Perfil'),
-          TabItem(icon: Icons.favorite, title: 'Favoritos'),
-        ],
-        onTap: (int i) => print('click index=$i'),
-      ),
-      // BottomNavigationBar(
-      //   backgroundColor:
-      //       Palette.black, // Color de fondo del BottomNavigationBar
-      //   selectedItemColor: Palette.white, // Color de ícono seleccionado
-      //   unselectedItemColor: Palette.white, // Color de ícono no seleccionado
-      //   currentIndex: selectedIndex,
-      //   onTap: _onItemTapped,
-      //   items: const <BottomNavigationBarItem>[
-      //     BottomNavigationBarItem(
-      //       backgroundColor: Palette.blackOpacity,
-      //       icon: Icon(Icons.home),
-      //       label: 'home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.qr_code_scanner_sharp),
-      //       label: 'Escanear/Pago',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.shopping_bag_sharp),
-      //       label: 'Comprar',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       label: 'Perfil',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.favorite),
-      //       label: 'favoritos',
-      //     ),
-      //   ],
-      // ),
-      body: ListView(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flutter3dDrawer(
-                controller: drawerControl,
-                maxSlide: MediaQuery.of(context).size.width * 0.7,
-                body: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 35),
-                      height: 13.w,
-                      decoration: const BoxDecoration(
-                        color: Palette.whiteGrey,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Palette.white05,
-                            spreadRadius: 10,
-                            blurRadius: 20,
-                            offset: Offset(0, 7),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Icon(
-                            Icons.menu,
-                            size: 50,
-                          ),
-                          Image.asset(
-                            'assets/images/logo.png',
-                            fit: BoxFit.cover,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              Get.toNamed("/perfil");
-                            },
-                            icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 50,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ).marginOnly(bottom: 50),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Texts.bold(
-                            'Lalo!',
-                            fontSize: 40,
-                          ),
-                          const Texts.regular(
-                            'Bienvenido a VirtuStyler',
-                            fontSize: 27,
-                          ).marginOnly(bottom: 30),
-                          CustomInput(
-                            hinttext: 'Search...',
-                            width: 50.h,
-                            obscureText: false,
-                            showSearchIcon: true,
-                          ).marginOnly(bottom: 30),
-                          const Texts.regular(
-                            'Elige una prenda',
-                            fontSize: 27,
-                          ),
-                          Container(
-                            height: 4.h,
-                            margin: const EdgeInsets.symmetric(vertical: 20),
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 7,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: Palette.white,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Image.asset(
-                                        'assets/icons/camisa.png',
-                                        fit: BoxFit.cover,
-                                      ).marginOnly(right: 10),
-                                      const Texts.regular(
-                                        'camisa',
-                                        fontSize: 22,
-                                        color: Palette.blueBlack,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          const Texts.regular(
-                            'Tendencias actualizadas',
-                            fontSize: 27,
-                          ),
-                          Container(
-                            color: Palette.whiteGrey,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 20),
-                            height: 80.h,
-                            width: 80.h,
-                            child: GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 20,
-                                mainAxisSpacing: 7,
-                                mainAxisExtent: 440,
-                              ),
-                              itemCount: 10,
-                              itemBuilder: (BuildContext context, int index) {
-                                return const ListOutfits();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                drawer: Container(
-                  height: 90.h,
-                  color: Palette.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Palette.background,
+          shadowColor: Palette.background,
+          elevation: 3,
+          title: Image.asset(
+            'assets/images/logo.png',
+            height: 5.h,
+          ),
+          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              controller.drawerControl.toggle();
+            },
+            icon: Icon(
+              Icons.menu,
+              size: 20.sp,
+              color: Palette.black,
+            ),
+          ),
+        ),
+        body: SafeArea(
+          child: Flutter3dDrawer(
+            controller: controller.drawerControl,
+            backgroundColor: Palette.background,
+            maxSlide: 60.w,
+            body: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Texts.bold(
+                    'Hola! Ericka',
+                    fontSize: 14,
+                  ).marginOnly(bottom: 2.h),
+                  const Texts.bold(
+                    'Bienvenido a VirtyStyler',
+                    fontSize: 14,
+                  ).marginOnly(bottom: 4.h),
+                  Row(
                     children: [
-                      const Icon(
-                        Icons.menu,
-                        size: 50,
-                      ).marginOnly(bottom: 40),
-                      ListTile(
-                        leading: const CircleAvatar(
-                          radius: 50,
-                          child: Icon(
-                            Icons.person,
-                            size: 60,
-                            color: Palette.white,
-                          ),
+                      const Expanded(
+                        child: CustomInput(
+                          hinttext: 'Search...',
                         ),
-                        title: const Texts.regular(
-                          'Lalo',
-                          fontSize: 30,
-                        ),
-                        subtitle: const Texts.regular(
-                          'Perfil Verificado',
-                          fontSize: 20,
-                        ),
-                        trailing: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Palette.whiteGrey,
-                          ),
-                          child: const Texts.regular(
-                            '3 Orders',
-                            fontSize: 15,
-                            color: Palette.blueBlack,
-                          ),
-                        ),
-                      ).marginOnly(bottom: 20),
-                      const IconAndText(
-                        text: 'Informacion de la cuenta',
-                        iconData: Icons.settings,
-                        fontSize: 25,
-                      ).marginOnly(bottom: 15),
-                      const IconAndText(
-                        text: 'Contraseña',
-                        iconData: Icons.lock,
-                        fontSize: 25,
-                      ).marginOnly(bottom: 15),
-                      const IconAndText(
-                        text: 'Compras y devoluciones',
-                        iconData: Icons.shopping_bag_outlined,
-                        fontSize: 25,
-                      ).marginOnly(bottom: 15),
-                      const IconAndText(
-                        text: 'Forma de pago',
-                        iconData: Icons.payment,
-                        fontSize: 25,
-                      ).marginOnly(bottom: 15),
-                      const IconAndText(
-                        text: 'Configuracion',
-                        iconData: Icons.settings,
-                        fontSize: 25,
                       ),
-                      const Spacer(),
-                      const IconAndText(
-                        text: 'Cerrar Session',
-                        iconData: Icons.logout,
-                        fontSize: 25,
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.search,
+                          size: 20.sp,
+                        ),
                       ),
                     ],
+                  ).marginOnly(bottom: 4.h, right: 5.w),
+                  const Texts.bold(
+                    'Categorias',
+                    fontSize: 14,
+                  ).marginOnly(bottom: 2.h),
+                  SizedBox(
+                    height: 4.h,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 7,
+                      itemBuilder: (context, index) {
+                        return const CategoryItem();
+                      },
+                    ),
+                  ).marginOnly(bottom: 4.h),
+                  const Texts.bold(
+                    'Tendencias actualizadas',
+                    fontSize: 14,
+                  ).marginOnly(bottom: 2.h),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 20.h * 5,
+                    child: GridView.builder(
+                      padding: EdgeInsets.only(right: 5.w),
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 9 / 16,
+                        crossAxisSpacing: 5.w,
+                        mainAxisSpacing: 4.h,
+                      ),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return const ProductItem();
+                      },
+                    ),
                   ),
-                ),
+                ],
+              ).paddingOnly(top: 2.h, left: 5.w),
+            ),
+            drawer: Container(
+              padding: EdgeInsets.only(bottom: 4.h),
+              color: Palette.pink,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 4.w),
+                    leading: CircleAvatar(
+                      backgroundColor: Palette.brown,
+                      radius: 15.sp,
+                      child: Icon(
+                        Icons.person,
+                        size: 10.sp,
+                        color: Palette.white,
+                      ),
+                    ),
+                    title: const Texts.regular(
+                      'Ericka',
+                      fontSize: 10,
+                    ),
+                    subtitle: Row(
+                      children: [
+                        const Texts.regular(
+                          'Perfil Verificado',
+                          fontSize: 9,
+                          color: Palette.greyBlack,
+                        ).marginOnly(right: 1.w),
+                        Icon(
+                          Icons.verified,
+                          color: Palette.darkGreen,
+                          size: 10.sp,
+                        ),
+                      ],
+                    ),
+                  ).marginOnly(bottom: 4.h),
+                  const IconAndText(
+                    text: 'Informacion de la cuenta',
+                    iconData: Icons.settings,
+                    fontSize: 10,
+                  ).marginOnly(bottom: 3.h),
+                  const IconAndText(
+                    text: 'Contraseña',
+                    iconData: Icons.lock,
+                    fontSize: 10,
+                  ).marginOnly(bottom: 3.h),
+                  const IconAndText(
+                    text: 'Compras y devoluciones',
+                    iconData: Icons.shopping_bag_outlined,
+                    fontSize: 10,
+                  ).marginOnly(bottom: 3.h),
+                  const IconAndText(
+                    text: 'Forma de pago',
+                    iconData: Icons.payment,
+                    fontSize: 10,
+                  ).marginOnly(bottom: 3.h),
+                  const IconAndText(
+                    text: 'Configuracion',
+                    iconData: Icons.settings,
+                    fontSize: 10,
+                  ),
+                  const Spacer(),
+                  const IconAndText(
+                    text: 'Cerrar Session',
+                    iconData: Icons.logout,
+                    fontSize: 10,
+                    color: Palette.red,
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ],
+        ),
       ),
     );
   }

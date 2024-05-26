@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
- 
+
 class PerfilPage extends StatelessWidget {
   const PerfilPage({super.key});
 
@@ -34,9 +34,8 @@ class PerfilPage extends StatelessWidget {
                   ),
                 ).marginOnly(bottom: 20),
                 const Texts.bold(
-                 'Hola, Ericka',
+                  'Hola, Ericka',
                   fontSize: 30,
-                  
                 ).marginOnly(bottom: 5),
                 const Texts.regular(
                   'Bienvenida a VirtuStyler',
@@ -48,14 +47,10 @@ class PerfilPage extends StatelessWidget {
                 ).marginOnly(bottom: 50),
                 CustomButton(
                   buttonText: 'Editar Perfil',
-                  textColor: Palette.white,
-                  minimumSize: const Size(250, 90),
                   onPressed: () {},
                 ).marginOnly(bottom: 40),
                 CustomButton(
                   buttonText: 'Ver historial',
-                  textColor: Palette.white,
-                  minimumSize: const Size(250, 90),
                   onPressed: () {},
                 )
               ],

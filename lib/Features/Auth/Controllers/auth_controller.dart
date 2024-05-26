@@ -11,34 +11,40 @@ class AuthController extends GetxController {
   final String defaulContra = 'admin';
 
   void login() {
-    final usuario = usuarioController.text.trim();
-    final contra = contraController.text.trim();
+     Get.toNamed("home");
+     return;
+    // final usuario = usuarioController.text.trim();
+    // final contra = contraController.text.trim();
 
-    if (usuario.isEmpty || contra.isEmpty) {
-      Get.snackbar(
-        'Error',
-        'Por favor, complete todos los campos.',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 5),
-        backgroundColor: Palette.red,
-        instantInit: true,
-        colorText: Palette.white,
-      );
-      return;
-    }
+    // if (usuario.isEmpty || contra.isEmpty) {
+    //   Get.snackbar(
+    //     'Error',
+    //     'Por favor, complete todos los campos.',
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     duration: const Duration(seconds: 5),
+    //     backgroundColor: Palette.red,
+    //     instantInit: true,
+    //     colorText: Palette.white,
+    //   );
+    //   return;
+    // }
 
-    if (usuario == defaulUsername && contra == defaulContra) {
-      Get.toNamed("home");
-    } else {
-      Get.snackbar(
-        'Error',
-        'Por favor, complete todos los campos.',
-        snackPosition: SnackPosition.BOTTOM,
-        duration: const Duration(seconds: 5),
-        backgroundColor: Colors.red,
-        instantInit: true,
-        colorText: Colors.white,
-      );
-    }
+    // if (usuario == defaulUsername && contra == defaulContra) {
+    //   Get.toNamed("home");
+    // } else {
+    //   Get.snackbar(
+    //     'Error',
+    //     'Por favor, complete todos los campos.',
+    //     snackPosition: SnackPosition.BOTTOM,
+    //     duration: const Duration(seconds: 5),
+    //     backgroundColor: Colors.red,
+    //     instantInit: true,
+    //     colorText: Colors.white,
+    //   );
+    // }
+  }
+
+  Future<void> register() async {
+      Get.toNamed("/home");
   }
 }

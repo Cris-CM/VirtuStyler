@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
 class IconAndText extends StatelessWidget {
   final String text;
   final Color color;
-  final double fontSize;
-  final FontWeight fontWeight;
+  final double fontSize; 
   final IconData iconData;
 
   const IconAndText({
     super.key,
     required this.text,
     this.color = Palette.black,
-    this.fontSize = 20,
-    this.fontWeight = FontWeight.normal,
+    this.fontSize = 10, 
     required this.iconData,
   });
 
@@ -24,18 +24,15 @@ class IconAndText extends StatelessWidget {
       children: [
         Icon(
           iconData,
-          size: fontSize,
+          size: fontSize.sp,
           color: color,
-        ).marginOnly(right: 10, left: 30),
-        Text(
+        ).marginOnly(right: 3.w),
+        Texts.regular(
           text,
-          style: TextStyle(
-            color: color,
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-          ),
+          color: color,
+          fontSize: fontSize,
         )
       ],
-    );
+    ).marginOnly(left: 4.w);
   }
 }

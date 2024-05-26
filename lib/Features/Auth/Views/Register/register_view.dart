@@ -9,10 +9,10 @@ import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/custom_shadows.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
-import '../../../core/widgets/custom_input.dart';
+import '../../../../core/widgets/custom_input.dart';
 
-class LoginView extends GetView<AuthController> {
-  const LoginView({super.key});
+class RegisterView extends GetView<AuthController> {
+  const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class LoginView extends GetView<AuthController> {
                     color: Palette.black,
                     fontSize: 20,
                     fontFamily: "Alegreya",
-                  ).marginOnly(bottom: 7.h),
+                  ).marginOnly(bottom: 4.h),
                 ],
               ),
               Container(
@@ -42,7 +42,7 @@ class LoginView extends GetView<AuthController> {
                   vertical: 4.h,
                 ),
                 width: double.infinity,
-                height: 70.h,
+                height: 82.h,
                 decoration: BoxDecoration(
                   color: Palette.whiteGrey,
                   boxShadow: [
@@ -62,45 +62,55 @@ class LoginView extends GetView<AuthController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Texts.bold(
-                      'Iniciar Sesión',
+                      'Registrarse',
                       fontSize: 18,
                       color: Palette.brown,
+                    ).marginOnly(bottom: 3.h),
+                    const Texts.regular(
+                      'Nombres',
+                      color: Palette.darkGreen,
+                      fontSize: 10,
+                    ).marginOnly(bottom: 2.h, left: 1.w),
+                    CustomInput(
+                      hinttext: 'Escribe tu nombre',
+                      controller: controller.usuarioController,
                     ).marginOnly(bottom: 3.h),
                     const Texts.regular(
                       'Correo Electronico',
                       color: Palette.darkGreen,
                       fontSize: 10,
-                    ).marginOnly(bottom: 2.h,left: 1.w),
+                    ).marginOnly(bottom: 2.h, left: 1.w),
                     CustomInput(
-                      hinttext: 'Escribe tu correo',
-                      controller: controller.usuarioController,
+                      hinttext: 'Ingrese su correo',
+                      controller: controller.contraController,
+                      obscureText: true,
                     ).marginOnly(bottom: 3.h),
                     const Texts.regular(
                       'Password',
                       color: Palette.darkGreen,
                       fontSize: 10,
-                    ).marginOnly(bottom: 2.h,left: 1.w),
+                    ).marginOnly(bottom: 2.h, left: 1.w),
                     CustomInput(
                       hinttext: 'Ingrese una contraseña',
                       controller: controller.contraController,
                       obscureText: true,
                     ).marginOnly(bottom: 50),
                     CustomButton(
-                      buttonText: 'Ingresar'.toUpperCase(),
-                      onPressed: controller.login,
+                      buttonText: 'Registrarse'.toUpperCase(),
+                      onPressed: ()=> Get.toNamed("/register/selecGender"),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Texts.regular(
-                        "Crea una cuenta nueva",
+                        "Ingrese con su cuenta",
                         fontSize: 11,
                         color: Palette.black.withOpacity(.5),
-                       ).marginSymmetric(vertical: 3.h),
+                      ).marginSymmetric(vertical: 3.h),
                     ),
                     CustomButton(
-                      buttonText: 'Registrarse'.toUpperCase(),
+                      buttonText: 'Iniciar Sesion'.toUpperCase(),
                       onPressed: () {
-                        Get.toNamed("/register");
+                        Get.toNamed("/login");
                       },
                     ),
                   ],

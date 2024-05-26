@@ -1,37 +1,37 @@
 import 'package:get/get.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_binding.dart';
-import 'package:virtustyler/Features/Auth/perfil_page.dart';
-import 'package:virtustyler/Features/Auth/selec_gender.dart';
-import 'package:virtustyler/Features/Auth/select_size.dart';
+import 'package:virtustyler/Features/Home/Controllers/home_binding.dart';
+import 'package:virtustyler/Features/Home/Views/home_view.dart';
+import 'package:virtustyler/Features/Home/Views/perfil_page.dart';
+import 'package:virtustyler/Features/Auth/Views/Register/selec_gender.dart';
+import 'package:virtustyler/Features/Auth/Views/Register/select_size.dart';
 import 'package:virtustyler/Features/Auth/Views/login_view.dart';
-import 'package:virtustyler/Features/Auth/Views/register_view.dart';
-import 'package:virtustyler/Features/Home/Views/home_page.dart';
+import 'package:virtustyler/Features/Auth/Views/Register/register_view.dart';
 
 final getRouter = <GetPage>[
-  // GetPage(
-  //   name: "/welcome",
-  //   page: () => const WelcomePage(),
-  // ),
   GetPage(
     name: "/login",
     page: () => const LoginView(),
     binding: AuthBinding(),
   ),
   GetPage(
-    name: "/selecGender",
-    page: () => const SelecGender(),
-  ),
-  GetPage(
-    name: "/selecSize",
-    page: () => const SelecSize(),
-  ),
-  GetPage(
-    name: "/signIn",
-    page: () => const RegisterView(),
-  ),
+      name: "/register",
+      page: () => const RegisterView(),
+      binding: AuthBinding(),
+      children: [
+        GetPage(
+          name: "/selecGender",
+          page: () => const SelectGender(),
+        ),
+        GetPage(
+          name: "/selecSize",
+          page: () => const SelectSize(),
+        ),
+      ]),
   GetPage(
     name: "/home",
-    page: () => const HomePage(),
+    page: () => const HomeView(),
+    binding: HomeBinding(),
   ),
   GetPage(
     name: "/perfil",

@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
+import 'package:virtustyler/Features/Home/Widgets/category_item.dart';
+import 'package:virtustyler/Features/Home/Widgets/product_item.dart';
+import 'package:virtustyler/core/widgets/custom_input.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
+
+class HomePage extends GetView<HomeController> {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Texts.bold(
+                  'Hola! Ericka',
+                  fontSize: 14,
+                ).marginOnly(bottom: 2.h),
+                const Texts.bold(
+                  'Bienvenido a VirtyStyler',
+                  fontSize: 14,
+                ).marginOnly(bottom: 4.h),
+                Row(
+                  children: [
+                    const Expanded(
+                      child: CustomInput(
+                        hinttext: 'Search...',
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.search,
+                        size: 20.sp,
+                      ),
+                    ),
+                  ],
+                ).marginOnly(bottom: 4.h, right: 5.w),
+                const Texts.bold(
+                  'Categorias',
+                  fontSize: 14,
+                ).marginOnly(bottom: 2.h),
+                SizedBox(
+                  height: 4.h,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      return const CategoryItem();
+                    },
+                  ),
+                ).marginOnly(bottom: 4.h),
+                const Texts.bold(
+                  'Tendencias actualizadas',
+                  fontSize: 14,
+                ).marginOnly(bottom: 2.h),
+                SizedBox(
+                  width: double.infinity,
+                  height: 20.h * 5,
+                  child: GridView.builder(
+                    padding: EdgeInsets.only(right: 5.w),
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 9 / 16,
+                      crossAxisSpacing: 5.w,
+                      mainAxisSpacing: 4.h,
+                    ),
+                    itemCount: 10,
+                    itemBuilder: (context, index) {
+                      return const ProductItem();
+                    },
+                  ),
+                ),
+              ],
+            ).paddingOnly(top: 2.h, left: 5.w),
+          ),
+        ),
+      ),
+    );
+  }
+}

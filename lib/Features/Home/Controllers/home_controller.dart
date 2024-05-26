@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   DrawerControl drawerControl = DrawerControl();
   final pageController = PageController();
-  
+
   final pageIndex = 0.obs;
+
+  final listSizes = <String>["S", "M", "L", "XL"];
 }

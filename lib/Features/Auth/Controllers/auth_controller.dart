@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtustyler/core/colors/palette.dart';
 
 class AuthController extends GetxController {
   TextEditingController usuarioController = TextEditingController();
@@ -11,8 +10,8 @@ class AuthController extends GetxController {
   final String defaulContra = 'admin';
 
   void login() {
-     Get.toNamed("home");
-     return;
+    Get.toNamed("home");
+    return;
     // final usuario = usuarioController.text.trim();
     // final contra = contraController.text.trim();
 
@@ -45,6 +44,6 @@ class AuthController extends GetxController {
   }
 
   Future<void> register() async {
-      Get.toNamed("/home");
+    Get.toNamed("/home");
   }
 }

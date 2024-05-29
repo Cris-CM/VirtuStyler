@@ -4,8 +4,10 @@ import 'package:flutter_3d_drawer/flutter_3d_drawer.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
+import 'package:virtustyler/Features/Home/Views/Pages/cart_page.dart';
 import 'package:virtustyler/Features/Home/Views/Pages/home_page.dart';
 import 'package:virtustyler/Features/Home/Views/Pages/perfil_page.dart';
+import 'package:virtustyler/core/Util/tabs.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/icon_and_text.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
@@ -37,16 +39,11 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       bottomNavigationBar: ConvexAppBar(
+        controller: controller.tapController,
         backgroundColor: Palette.background,
         color: Palette.greyBlack,
         activeColor: Palette.blackOpacity,
-        items: const [
-          TabItem(icon: Icons.home, title: 'Home'),
-          TabItem(icon: Icons.qr_code_scanner_sharp, title: 'Escanear'),
-          TabItem(icon: Icons.shopping_bag_sharp, title: 'Comprar'),
-          TabItem(icon: Icons.person, title: 'Perfil'),
-          TabItem(icon: Icons.favorite, title: 'Favoritos'),
-        ],
+        items: tabs,
         onTap: (int i) => controller.pageController.jumpToPage(i),
       ),
       body: Flutter3dDrawer(
@@ -59,9 +56,8 @@ class HomeView extends GetView<HomeController> {
           children: [
             HomePage(),
             Container(),
-            Container(),
             ProfilePage(),
-            Container(),
+            CartPage(),
           ],
         ),
         drawer: Container(
@@ -81,8 +77,8 @@ class HomeView extends GetView<HomeController> {
                     color: Palette.white,
                   ),
                 ),
-                title: const Texts.regular(
-                  'Ericka',
+                title: Texts.bold(
+                  controller.authController.userModel.name,
                   fontSize: 10,
                 ),
                 subtitle: Row(
@@ -100,37 +96,37 @@ class HomeView extends GetView<HomeController> {
                   ],
                 ),
               ).marginOnly(bottom: 4.h),
-              const IconAndText(
+              IconAndText(
                 text: 'Informacion de la cuenta',
                 iconData: Icons.settings,
-                fontSize: 10,
-              ).marginOnly(bottom: 3.h),
-              const IconAndText(
+                onTap: () {},
+              ).marginOnly(bottom: 1.h),
+              IconAndText(
                 text: 'Contraseña',
                 iconData: Icons.lock,
-                fontSize: 10,
-              ).marginOnly(bottom: 3.h),
-              const IconAndText(
+                onTap: () {},
+              ).marginOnly(bottom: 1.h),
+              IconAndText(
                 text: 'Compras y devoluciones',
                 iconData: Icons.shopping_bag_outlined,
-                fontSize: 10,
-              ).marginOnly(bottom: 3.h),
-              const IconAndText(
+                onTap: () {},
+              ).marginOnly(bottom: 1.h),
+              IconAndText(
                 text: 'Forma de pago',
                 iconData: Icons.payment,
-                fontSize: 10,
-              ).marginOnly(bottom: 3.h),
-              const IconAndText(
+                onTap: () {},
+              ).marginOnly(bottom: 1.h),
+              IconAndText(
                 text: 'Configuracion',
                 iconData: Icons.settings,
-                fontSize: 10,
+                onTap: () {},
               ),
               const Spacer(),
-              const IconAndText(
+              IconAndText(
                 text: 'Cerrar Session',
                 iconData: Icons.logout,
-                fontSize: 10,
                 color: Palette.red,
+                onTap: () async => controller.logout(),
               ),
             ],
           ),

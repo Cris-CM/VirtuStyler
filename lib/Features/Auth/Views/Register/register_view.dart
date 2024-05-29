@@ -73,7 +73,7 @@ class RegisterView extends GetView<AuthController> {
                     ).marginOnly(bottom: 2.h, left: 1.w),
                     CustomInput(
                       hinttext: 'Escribe tu nombre',
-                      controller: controller.usuarioController,
+                      controller: controller.nameRegisterController,
                     ).marginOnly(bottom: 3.h),
                     const Texts.regular(
                       'Correo Electronico',
@@ -82,8 +82,7 @@ class RegisterView extends GetView<AuthController> {
                     ).marginOnly(bottom: 2.h, left: 1.w),
                     CustomInput(
                       hinttext: 'Ingrese su correo',
-                      controller: controller.contraController,
-                      obscureText: true,
+                      controller: controller.emailRegisterController,
                     ).marginOnly(bottom: 3.h),
                     const Texts.regular(
                       'Password',
@@ -92,12 +91,12 @@ class RegisterView extends GetView<AuthController> {
                     ).marginOnly(bottom: 2.h, left: 1.w),
                     CustomInput(
                       hinttext: 'Ingrese una contraseña',
-                      controller: controller.contraController,
+                      controller: controller.passwordRegisterController,
                       obscureText: true,
                     ).marginOnly(bottom: 50),
                     CustomButton(
                       buttonText: 'Registrarse'.toUpperCase(),
-                      onPressed: ()=> Get.toNamed("/register/selecGender"),
+                      onPressed: controller.register,
                     ),
                     Align(
                       alignment: Alignment.center,

@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:virtustyler/Features/Home/Models/category_model.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key});
+  const CategoryItem({
+    super.key,
+    required this.categoryModel,
+    required this.image,
+  });
+  final CategoryModel categoryModel;
+  final Image image;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +25,9 @@ class CategoryItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            'assets/icons/camisa.png',
-            fit: BoxFit.cover,
-          ).marginOnly(right: 3.w),
-          const Texts.regular(
-            'Camisa',
+          image.marginOnly(right: 3.w),
+          Texts.regular(
+            categoryModel.name,
             fontSize: 12,
             color: Palette.blueBlack,
           ),

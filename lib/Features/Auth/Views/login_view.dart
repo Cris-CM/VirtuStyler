@@ -19,96 +19,102 @@ class LoginView extends GetView<AuthController> {
     return Scaffold(
       backgroundColor: Palette.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Column(
-                children: [
-                  Image.asset(
-                    'assets/images/logo.png',
-                    fit: BoxFit.cover,
-                  ).marginOnly(bottom: 2.h, top: 4.h),
-                  const Texts.regular(
-                    'VIRTU\n Styler',
-                    color: Palette.black,
-                    fontSize: 20,
-                    fontFamily: "Alegreya",
-                  ).marginOnly(bottom: 7.h),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10.w,
-                  vertical: 4.h,
-                ),
-                width: double.infinity,
-                height: 70.h,
-                decoration: BoxDecoration(
-                  color: Palette.whiteGrey,
-                  boxShadow: [
-                    CustomShadows.dropShadow(
-                      x: 0,
-                      y: -2,
-                      blurRadius: 4,
-                      opacity: .25,
-                    ),
-                  ],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(34.sp),
-                    topRight: Radius.circular(34.sp),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        child: Builder(builder: (context) {
+          if (controller.loading()) {
+            return const CircularProgressIndicator();
+          }
+
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Column(
                   children: [
-                    const Texts.bold(
-                      'Iniciar Sesión',
-                      fontSize: 18,
-                      color: Palette.brown,
-                    ).marginOnly(bottom: 3.h),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      fit: BoxFit.cover,
+                    ).marginOnly(bottom: 2.h, top: 4.h),
                     const Texts.regular(
-                      'Correo Electronico',
-                      color: Palette.darkGreen,
-                      fontSize: 10,
-                    ).marginOnly(bottom: 2.h,left: 1.w),
-                    CustomInput(
-                      hinttext: 'Escribe tu correo',
-                      controller: controller.usuarioController,
-                    ).marginOnly(bottom: 3.h),
-                    const Texts.regular(
-                      'Password',
-                      color: Palette.darkGreen,
-                      fontSize: 10,
-                    ).marginOnly(bottom: 2.h,left: 1.w),
-                    CustomInput(
-                      hinttext: 'Ingrese una contraseña',
-                      controller: controller.contraController,
-                      obscureText: true,
-                    ).marginOnly(bottom: 50),
-                    CustomButton(
-                      buttonText: 'Ingresar'.toUpperCase(),
-                      onPressed: controller.login,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Texts.regular(
-                        "Crea una cuenta nueva",
-                        fontSize: 11,
-                        color: Palette.black.withOpacity(.5),
-                       ).marginSymmetric(vertical: 3.h),
-                    ),
-                    CustomButton(
-                      buttonText: 'Registrarse'.toUpperCase(),
-                      onPressed: () {
-                        Get.toNamed("/register");
-                      },
-                    ),
+                      'VIRTU\n Styler',
+                      color: Palette.black,
+                      fontSize: 20,
+                      fontFamily: "Alegreya",
+                    ).marginOnly(bottom: 7.h),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 4.h,
+                  ),
+                  width: double.infinity,
+                  height: 70.h,
+                  decoration: BoxDecoration(
+                    color: Palette.whiteGrey,
+                    boxShadow: [
+                      CustomShadows.dropShadow(
+                        x: 0,
+                        y: -2,
+                        blurRadius: 4,
+                        opacity: .25,
+                      ),
+                    ],
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(34.sp),
+                      topRight: Radius.circular(34.sp),
+                    ),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Texts.bold(
+                        'Iniciar Sesión',
+                        fontSize: 18,
+                        color: Palette.brown,
+                      ).marginOnly(bottom: 3.h),
+                      const Texts.regular(
+                        'Correo Electronico',
+                        color: Palette.darkGreen,
+                        fontSize: 10,
+                      ).marginOnly(bottom: 2.h, left: 1.w),
+                      CustomInput(
+                        hinttext: 'Escribe tu correo',
+                        controller: controller.emailLoginController,
+                      ).marginOnly(bottom: 3.h),
+                      const Texts.regular(
+                        'Password',
+                        color: Palette.darkGreen,
+                        fontSize: 10,
+                      ).marginOnly(bottom: 2.h, left: 1.w),
+                      CustomInput(
+                        hinttext: 'Ingrese una contraseña',
+                        controller: controller.passwordLoginController,
+                        obscureText: true,
+                      ).marginOnly(bottom: 50),
+                      CustomButton(
+                        buttonText: 'Ingresar'.toUpperCase(),
+                        onPressed: controller.login,
+                      ),
+                      Align(
+                        alignment: Alignment.center,
+                        child: Texts.regular(
+                          "Crea una cuenta nueva",
+                          fontSize: 11,
+                          color: Palette.black.withOpacity(.5),
+                        ).marginSymmetric(vertical: 3.h),
+                      ),
+                      CustomButton(
+                        buttonText: 'Registrarse'.toUpperCase(),
+                        onPressed: () {
+                          Get.toNamed("/register");
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
   }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
 import 'package:virtustyler/Features/Home/Widgets/category_item.dart';
 import 'package:virtustyler/Features/Home/Widgets/product_item.dart';
+import 'package:virtustyler/core/Util/get_image.dart';
+import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_input.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
@@ -19,13 +22,14 @@ class HomePage extends GetView<HomeController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Texts.bold(
-                  'Hola! Ericka',
+                Texts.bold(
+                  'Hola! ${controller.authController.userModel.name}',
                   fontSize: 14,
-                ).marginOnly(bottom: 2.h),
-                const Texts.bold(
+                ).marginOnly(bottom: 1.h),
+                const Texts.regular(
                   'Bienvenido a VirtyStyler',
                   fontSize: 14,
+                  color: Palette.greyBlack,
                 ).marginOnly(bottom: 4.h),
                 Row(
                   children: [
@@ -47,16 +51,36 @@ class HomePage extends GetView<HomeController> {
                   'Categorias',
                   fontSize: 14,
                 ).marginOnly(bottom: 2.h),
-                SizedBox(
-                  height: 4.h,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 7,
-                    itemBuilder: (context, index) {
-                      return const CategoryItem();
-                    },
-                  ),
-                ).marginOnly(bottom: 4.h),
+                FutureBuilder(
+                    future: controller.getCategories(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return SizedBox(
+                          height: 4.h,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: snapshot.data!.length,
+                            itemBuilder: (context, index) {
+                              return FutureBuilder(
+                                future:
+                                    GetImage.get(snapshot.data![index].imageId),
+                                builder: (context, snapshotImage) {
+                                  if (snapshotImage.hasData) {
+                                    return CategoryItem(
+                                      image: snapshotImage.data!,
+                                      categoryModel: snapshot.data![index],
+                                    );
+                                  }
+
+                                  return const SizedBox.shrink();
+                                },
+                              );
+                            },
+                          ),
+                        ).marginOnly(bottom: 4.h);
+                      }
+                      return const CircularProgressIndicator();
+                    }),
                 const Texts.bold(
                   'Tendencias actualizadas',
                   fontSize: 14,

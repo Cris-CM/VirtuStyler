@@ -107,7 +107,12 @@ class ProductView extends GetView<HomeController> {
               ).marginOnly(bottom: 2.h),
               CustomButton(
                 buttonText: "Agregar al carrito",
-                onPressed: () {},
+                onPressed: () {
+                  controller.tapController.animateTo(3);
+                  controller.pageController.jumpToPage(3);
+
+                  Get.back();
+                },
               ).marginSymmetric(vertical: 3.h),
             ],
           ).paddingSymmetric(horizontal: 5.w),

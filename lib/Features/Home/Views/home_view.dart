@@ -6,6 +6,7 @@ import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
 import 'package:virtustyler/Features/Home/Views/Pages/cart_page.dart';
 import 'package:virtustyler/Features/Home/Views/Pages/home_page.dart';
+import 'package:virtustyler/Features/Home/Views/Pages/menu_page.dart';
 import 'package:virtustyler/Features/Home/Views/Pages/perfil_page.dart';
 import 'package:virtustyler/core/Util/tabs.dart';
 import 'package:virtustyler/core/colors/palette.dart';
@@ -53,9 +54,9 @@ class HomeView extends GetView<HomeController> {
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: controller.pageController,
-          children: [
+          children: const [
             HomePage(),
-            Container(),
+            MenuPage(),
             ProfilePage(),
             CartPage(),
           ],

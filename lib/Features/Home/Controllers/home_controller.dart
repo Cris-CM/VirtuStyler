@@ -61,8 +61,8 @@ class HomeController extends GetxController
 
   Future<void> getPlayer() async {
     try {
-  //    final directory = await getApplicationDocumentsDirectory();
-    //  final filePath = '${directory.path}/$avatarId.glb';
+      //    final directory = await getApplicationDocumentsDirectory();
+      //  final filePath = '${directory.path}/$avatarId.glb';
 
       // await dio.download(
       //   "https://models.readyplayer.me/$avatarId.glb?quality=low",

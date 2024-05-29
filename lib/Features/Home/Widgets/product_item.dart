@@ -35,7 +35,7 @@ class ProductItem extends StatelessWidget {
               fontSize: 10,
             ).marginOnly(left: 2.w, bottom: 1.h),
             const Texts.bold(
-              '\S/. 100',
+              'S/. 100',
               fontSize: 12,
             ).marginOnly(left: 2.w, bottom: 2.h, top: 1.h),
           ],

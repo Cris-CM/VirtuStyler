@@ -115,7 +115,9 @@ class HomeView extends GetView<HomeController> {
               IconAndText(
                 text: 'Forma de pago',
                 iconData: Icons.payment,
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed("/pagos");
+                },
               ).marginOnly(bottom: 1.h),
               IconAndText(
                 text: 'Configuracion',

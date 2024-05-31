@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Palette {
   static const black = Colors.black;
+  static const blue = Colors.blue;
   static const transparent = Colors.transparent;
   static const blackOpacity = Color(0XFF29363D);
   static const pink = Color(0xFFF5E2D0);

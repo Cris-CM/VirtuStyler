@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/utils.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/custom_input.dart';
@@ -134,7 +133,9 @@ class PaymentView extends StatelessWidget {
             ),
             CustomButton(
               buttonText: 'Guardar tarjeta',
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed('/home');
+              },
             )
           ],
         ).paddingOnly(top: 2.h, left: 5.w, right: 5.w),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_3d_drawer/flutter_3d_drawer.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
 import 'package:virtustyler/Features/Home/Models/asset_model.dart';
 import 'package:virtustyler/Features/Home/Models/category_model.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/utils.dart';
 import 'package:sizer/sizer.dart';
-import 'package:virtustyler/Features/Home/Widgets/product_item.dart';
+import 'package:virtustyler/Features/Home/Widgets/product_ofert.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 
 import '../../../../core/widgets/texts.dart';
@@ -32,22 +32,31 @@ class MenuPage extends StatelessWidget {
                 ),
               ).marginOnly(bottom: 1.h),
               Container(
-                height: 4.h,
+                height: 5.h,
                 margin: const EdgeInsets.symmetric(vertical: 20),
+                decoration: BoxDecoration(
+                  color: Palette.grey,
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 5,
                   itemBuilder: (context, index) {
                     return Container(
                       height: 20.h,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      margin: EdgeInsets.symmetric(horizontal: 2.w),
                       decoration: BoxDecoration(
+                        border: index == 2
+                            ? Border.all(color: Palette.blue, width: 0.8.w)
+                            : null,
                         borderRadius: BorderRadius.circular(20),
-                        color: Palette.grey,
                       ),
-                      child: const Texts.bold(
-                        '20 %',
-                        fontSize: 14,
+                      child: const Center(
+                        child: Texts.bold(
+                          '20 %',
+                          fontSize: 14,
+                        ),
                       ),
                     );
                   },
@@ -67,7 +76,7 @@ class MenuPage extends StatelessWidget {
                   ),
                   itemCount: 10,
                   itemBuilder: (context, index) {
-                    return const ProductItem();
+                    return const ProductOfert();
                   },
                 ),
               ),

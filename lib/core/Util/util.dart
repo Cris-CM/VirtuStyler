@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:virtustyler/Features/Home/Models/image_model.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
@@ -66,5 +68,16 @@ class Util {
     );
   }
 
-  
+  static Future<String> getImage(String? id) async {
+    if (id == null) {
+      return "https://imgur.com/Ubf5oMW.png";
+    }
+
+    final image =
+        await FirebaseFirestore.instance.collection("Images").doc(id).get();
+
+    final imageM = ImageModel.fromJson(image.data()!);
+
+    return imageM.url;
+  }
 }

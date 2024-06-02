@@ -2,17 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
-import 'package:virtustyler/Features/Home/Widgets/product_photo_item.dart';
+import 'package:virtustyler/Features/Home/Models/product_model.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
+import 'package:virtustyler/core/Util/util.dart';
 
 class ProductView extends GetView<HomeController> {
-  const ProductView({super.key});
+  const ProductView(this.productModel, {super.key});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomButton(
+        buttonText: "Agregar al carrito",
+        onPressed: () {
+          controller.tapController.animateTo(3);
+          controller.pageController.jumpToPage(3);
+
+          Get.back();
+        },
+      ).marginSymmetric(vertical: 3.h, horizontal: 10.w),
       backgroundColor: Palette.background,
       appBar: AppBar(
         backgroundColor: Palette.background,
@@ -30,43 +41,40 @@ class ProductView extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/images/model.png',
-                fit: BoxFit.contain,
-                height: 50.h,
-                width: double.infinity,
+              FutureBuilder(
+                future: Util.getImage(productModel.imageId),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Align(
+                      alignment: Alignment.center,
+                      child: Image.network(
+                        snapshot.data!,
+                        alignment: Alignment.center,
+                        fit: BoxFit.cover,
+                        height: 40.h,
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
               ),
-              const Texts.regular(
-                "Sudadera con capucha estampada para hombre",
+              Texts.regular(
+                productModel.subName,
                 color: Palette.greyBlack,
                 fontSize: 8,
               ).marginOnly(bottom: 1.h),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Texts.bold(
-                    "Nike Club Fleece",
+                    productModel.name,
                     fontSize: 14,
                   ),
                   Texts.bold(
-                    "S/. 100",
+                    "S/. ${productModel.price}",
                     fontSize: 14,
                   ),
                 ],
-              ).marginOnly(bottom: 2.h),
-              SizedBox(
-                height: 14.h,
-                width: double.infinity,
-                child: Center(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: 4,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return const ProductPhotoItem();
-                    },
-                  ),
-                ),
               ).marginOnly(bottom: 2.h),
               const Texts.bold(
                 "Tamaño",
@@ -105,15 +113,6 @@ class ProductView extends GetView<HomeController> {
                 color: Palette.greyBlack,
                 height: 1.4,
               ).marginOnly(bottom: 2.h),
-              CustomButton(
-                buttonText: "Agregar al carrito",
-                onPressed: () {
-                  controller.tapController.animateTo(3);
-                  controller.pageController.jumpToPage(3);
-
-                  Get.back();
-                },
-              ).marginSymmetric(vertical: 3.h),
             ],
           ).paddingSymmetric(horizontal: 5.w),
         ),

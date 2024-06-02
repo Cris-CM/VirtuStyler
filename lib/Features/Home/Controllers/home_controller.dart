@@ -7,49 +7,84 @@ import 'package:o3d/o3d.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
 import 'package:virtustyler/Features/Home/Models/asset_model.dart';
 import 'package:virtustyler/Features/Home/Models/category_model.dart';
+import 'package:virtustyler/Features/Home/Models/product_model.dart';
 import 'package:virtustyler/core/Network/dio.dart';
 import 'package:virtustyler/core/Util/tabs.dart';
-import 'package:virtustyler/core/widgets/util.dart';
+import 'package:virtustyler/core/Util/util.dart';
 
 const avatarId = "6648e5294c3b647e2d5270e8";
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  final authController = Get.find<AuthController>();
+  final firebase = FirebaseFirestore.instance;
+  late TabController tapController;
+  DrawerControl drawerControl = DrawerControl();
+  final pageController = PageController();
+  final pageIndex = 0.obs;
+  final listSizes = <String>["S", "M", "L", "XL"];
+  final products = <ProductModel>[].obs;
+  final categories = <CategoryModel>[].obs;
+  late Rx<CategoryModel> categorySelected;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
     tapController = TabController(
       length: tabs.length,
       vsync: this,
     );
+    await getCategories();
+    await getProducts();
 
-    //getPlayer();
     super.onInit();
   }
 
-  final authController = Get.find<AuthController>();
-  final firebase = FirebaseFirestore.instance;
-  late TabController tapController;
-
-  DrawerControl drawerControl = DrawerControl();
-  final pageController = PageController();
-
-  final pageIndex = 0.obs;
-
-  final listSizes = <String>["S", "M", "L", "XL"];
-
-  // HOME PAGE FUNCTIONS
-
-  Future<List<CategoryModel>> getCategories() async {
+  Future<void> getCategories() async {
     try {
+      categories.clear();
       final categoriesJson = await firebase.collection("categories").get();
 
-      return (categoriesJson.docs as List)
+      final list = (categoriesJson.docs as List)
           .map((e) => CategoryModel.fromJson(e.data()))
           .toList();
+
+      final name = list.firstWhere((element) => element.name == "Todo");
+
+      list.removeWhere((element) => element.name == "Todo");
+
+      list.insert(0, name);
+
+      categories.addAll(list);
+      categorySelected = categories.first.obs;
     } catch (e) {
       Util.errorSnackBar("Error al obtener categorias.");
+    }
+  }
 
-      return [];
+  Future<void> getProducts({String? categoryId}) async {
+    try {
+      products.clear();
+
+      late QuerySnapshot<Map<String, dynamic>> productsJson;
+
+      if (categoryId != null && categoryId.isNotEmpty) {
+        productsJson = await firebase
+            .collection("Products")
+            .where("categoryId", isEqualTo: categoryId)
+            .get();
+      } else {
+        productsJson = await firebase.collection("Products").get();
+      }
+
+      products.addAll(
+        productsJson.docs
+            .map(
+              (e) => ProductModel.fromJson(e.data()),
+            )
+            .toList(),
+      );
+    } catch (e) {
+      Util.errorSnackBar("Error al obtener productos.");
     }
   }
 

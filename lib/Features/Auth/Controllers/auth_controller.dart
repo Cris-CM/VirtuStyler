@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtustyler/Features/Auth/Models/user_model.dart';
-import 'package:virtustyler/core/widgets/util.dart';
+import 'package:virtustyler/core/Util/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthController extends GetxController {

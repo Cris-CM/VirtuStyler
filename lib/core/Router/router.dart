@@ -7,8 +7,7 @@ import 'package:virtustyler/Features/Auth/Views/Register/selec_gender.dart';
 import 'package:virtustyler/Features/Auth/Views/Register/select_size.dart';
 import 'package:virtustyler/Features/Auth/Views/login_view.dart';
 import 'package:virtustyler/Features/Auth/Views/Register/register_view.dart';
-import 'package:virtustyler/Features/Home/Views/product_view.dart';
-
+ 
 final getRouter = <GetPage>[
   GetPage(
     name: "/login",
@@ -33,12 +32,6 @@ final getRouter = <GetPage>[
     name: "/home",
     page: () => const HomeView(),
     binding: HomeBinding(),
-    children: [
-      GetPage(
-        name: "/product",
-        page: () => const ProductView(),
-      ),
-    ],
   ),
   GetPage(
     name: "/pagos",

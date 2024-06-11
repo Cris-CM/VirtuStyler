@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #avaturn-sdk-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+    <script type="module">
+        // Loading directly from CDN, see FAQ about packaging
+        import { AvaturnSDK } from "https://cdn.jsdelivr.net/npm/@avaturn/sdk/dist/index.js";
+
+        function loadAvaturn() {
+            const container = document.getElementById("avaturn-sdk-container");
+            // REPLACE THE SUBDOMAIN WITH YOUR OWN
+            const subdomain = "demo";
+            const url = `https://${subdomain}.avaturn.dev`;
+            // You can now use AvaturnSDK
+            const sdk = new AvaturnSDK();
+            sdk
+                .init(container, { url })
+                .then(() => {
+                    // Listen for export callback (when a user clicks "Next")
+                    sdk.on("export", (data) => {
+                        alert(
+                            "[callback] Avatar exported. See logs to explore the returned data."
+                        );
+                        // INSERT YOUR CODE TO HANDLE EXPORT HERE!
+                        // data of type https://sdk-docs.avaturn.me/types/ExportAvatarResult
+                        console.log(data);
+                    });
+                });
+        }
+
+        // Start Avaturn on page load
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", loadAvaturn);
+        } else {
+            loadAvaturn();
+        }
+
+        // You can also uncomment the following line to make `loadAvaturn` available globally as window.loadAvaturn
+        // This is useful if you want to e.g. load Avaturn on button click
+        window.loadAvaturn = loadAvaturn;
+    </script>
+</head>
+
+<body>
+    <div id="avaturn-sdk-container"></div>
+</body>
+
+</html>

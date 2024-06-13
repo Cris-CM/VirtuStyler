@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:virtustyler/Features/Home/Models/product_model.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
-import 'package:virtustyler/core/widgets/custom_input.dart';
-import 'package:virtustyler/core/widgets/icon_and_text.dart';
 import '../../../core/colors/palette.dart';
 import '../../../core/widgets/texts.dart';
 
@@ -12,6 +11,7 @@ class PagosView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final productoModel = Get.arguments as ProductModel;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -35,8 +35,8 @@ class PagosView extends StatelessWidget {
                   color: Palette.blue,
                   size: 7.w,
                 ).marginOnly(right: 6.w),
-                const Texts.regular(
-                  'Polera',
+                Texts.regular(
+                  productoModel.name,
                   fontSize: 12,
                 ),
               ],
@@ -53,23 +53,23 @@ class PagosView extends StatelessWidget {
                   fontSize: 12,
                 ),
                 const Spacer(),
-                const Texts.regular(
-                  '\$200.00',
+                Texts.regular(
+                  '\$${productoModel.price}',
                   fontSize: 12,
                 ),
               ],
             ).marginOnly(bottom: 9.h),
             Column(
               children: [
-                const Row(
+                Row(
                   children: [
-                    Texts.regular(
+                    const Texts.regular(
                       'Total producto',
                       fontSize: 8,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Texts.regular(
-                      '\$00.00',
+                      '\$${productoModel.price}',
                       fontSize: 8,
                     ),
                   ],
@@ -77,12 +77,12 @@ class PagosView extends StatelessWidget {
                 const Row(
                   children: [
                     Texts.regular(
-                      'Igv',
+                      'Envio',
                       fontSize: 8,
                     ),
                     Spacer(),
                     Texts.regular(
-                      '8%',
+                      '\$0.00',
                       fontSize: 8,
                     ),
                   ],
@@ -101,8 +101,8 @@ class PagosView extends StatelessWidget {
                   fontSize: 18,
                 ),
                 const Spacer(),
-                const Texts.bold(
-                  '\$200.00',
+                Texts.bold(
+                  '\$${productoModel.price}',
                   fontSize: 15,
                 ),
               ],
@@ -118,4 +118,6 @@ class PagosView extends StatelessWidget {
       ),
     );
   }
+
+ 
 }

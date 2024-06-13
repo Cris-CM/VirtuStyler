@@ -17,8 +17,9 @@ class ProductView extends GetView<HomeController> {
     return Scaffold(
       bottomNavigationBar: CustomButton(
         buttonText: "Comprar",
-        onPressed: () {
-          Get.toNamed("/factura");
+        onPressed: () async {
+          await controller.makePayment(productModel);
+         
         },
       ).marginSymmetric(vertical: 3.h, horizontal: 10.w),
       backgroundColor: Palette.background,

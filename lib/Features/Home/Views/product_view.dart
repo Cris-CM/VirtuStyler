@@ -16,12 +16,9 @@ class ProductView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomButton(
-        buttonText: "Agregar al carrito",
+        buttonText: "Comprar",
         onPressed: () {
-          controller.tapController.animateTo(3);
-          controller.pageController.jumpToPage(3);
-
-          Get.back();
+          Get.toNamed("/factura");
         },
       ).marginSymmetric(vertical: 3.h, horizontal: 10.w),
       backgroundColor: Palette.background,

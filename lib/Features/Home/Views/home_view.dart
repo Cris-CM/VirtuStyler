@@ -110,7 +110,8 @@ class HomeView extends GetView<HomeController> {
               IconAndText(
                 text: 'Compras y devoluciones',
                 iconData: Icons.shopping_bag_outlined,
-                onTap: () {},
+                onTap: () {
+                },
               ).marginOnly(bottom: 1.h),
               IconAndText(
                 text: 'Forma de pago',
@@ -128,7 +129,8 @@ class HomeView extends GetView<HomeController> {
               IconAndText(
                 text: 'Cerrar Session',
                 iconData: Icons.logout,
-                color: Palette.red,
+                iconColor: Palette.red,
+                textColor: Palette.red,
                 onTap: () async => controller.logout(),
               ),
             ],

@@ -13,6 +13,7 @@ class Palette {
   static const whiteOpacity = Color(0XFF989898);
   static const white = Colors.white;
   static const darkGreen = Color(0XFF4E8D7C);
+  static const green = Colors.green;
   static const red = Colors.red;
 
   static const grey = Color(0xffF5F5F5);

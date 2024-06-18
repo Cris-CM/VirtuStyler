@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_binding.dart';
 import 'package:virtustyler/Features/Auth/Views/factura_view.dart';
 import 'package:virtustyler/Features/Auth/Views/payment_view.dart';
+import 'package:virtustyler/Features/Avatar/Controllers/avatar_binding.dart';
+import 'package:virtustyler/Features/Avatar/Views/avatar_view.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_binding.dart';
 import 'package:virtustyler/Features/Home/Views/home_view.dart';
 import 'package:virtustyler/Features/Auth/Views/Register/selec_gender.dart';
@@ -43,5 +45,15 @@ final getRouter = <GetPage>[
     name: "/factura",
     page: () => const PagosView(),
     binding: AuthBinding(),
+  ),
+  GetPage(
+    name: "/factura",
+    page: () => const PagosView(),
+    binding: AuthBinding(),
+  ),
+  GetPage(
+    name: "/avatar",
+    page: () => const AvatarView(),
+    binding: AvatarBinding(),
   ),
 ];

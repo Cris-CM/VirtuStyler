@@ -8,6 +8,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
+import 'package:virtustyler/Features/Avatar/Controllers/avatar_controller.dart';
 import 'package:virtustyler/Features/Home/Models/asset_model.dart';
 import 'package:virtustyler/Features/Home/Models/category_model.dart';
 import 'package:virtustyler/Features/Home/Models/product_model.dart';
@@ -19,6 +20,9 @@ const avatarId = "6648e5294c3b647e2d5270e8";
 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
+      
+  final avatarController = Get.find<AvatarController>();
+
   final authController = Get.find<AuthController>();
   final firebase = FirebaseFirestore.instance;
   late TabController tapController;
@@ -187,8 +191,7 @@ class HomeController extends GetxController
 
       paymentIntent = null;
 
-      Get.toNamed("/factura",arguments: productModel);
-
+      Get.toNamed("/factura", arguments: productModel);
     } on StripeException catch (e) {
       // If any error comes during payment
       // so payment will be cancelled

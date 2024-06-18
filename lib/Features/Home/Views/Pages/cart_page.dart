@@ -13,12 +13,9 @@ class CartPage extends GetView<HomeController> {
       children: [
         Expanded(
           flex: 5,
-          child: O3D(
-            cameraControls: true,
-            controller: controller.controller,
-            src: "https://models.readyplayer.me/$avatarId.glb",
-            // autoRotate: true,
-            // rotationPerSecond: "60deg",
+          child: O3D.network(
+            src:
+                "https://api.readyplayer.me/v2/avatars/${controller.avatarController.avatarTemplateModel.id}.glb?preview=true",
           ),
         ),
         Expanded(

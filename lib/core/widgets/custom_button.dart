@@ -8,12 +8,14 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.buttonText,
     required this.onPressed,
+    this.active = true,
     this.color,
   });
 
   final String buttonText;
   final Function() onPressed;
   final Color? color;
+  final bool active;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -24,7 +26,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.sp),
         ),
       ),
-      onPressed: onPressed,
+      onPressed: active ? onPressed : null,
       child: Texts.regular(
         buttonText.toUpperCase(),
         color: Palette.white,

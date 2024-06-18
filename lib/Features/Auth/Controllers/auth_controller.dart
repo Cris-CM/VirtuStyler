@@ -62,7 +62,14 @@ class AuthController extends GetxController {
             userModelT.toJson(),
           );
 
-      Get.toNamed("/login");
+      final userJson = await firebase
+          .collection("users")
+          .where("id", isEqualTo: user.user!.uid)
+          .get();
+
+      userModel = UserModel.fromJson(userJson.docs.first.data());
+
+      Get.toNamed("/avatar");
       Util.successSnackBar("Registrado Correctamente");
     } on FirebaseAuthException catch (e) {
       Util.errorSnackBar(e.message ?? "Error desconocido");

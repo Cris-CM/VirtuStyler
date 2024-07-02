@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/utils.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:virtustyler/Features/Home/Widgets/product_ofert.dart';
+import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
+import 'package:virtustyler/Features/Home/Widgets/product_ofert.dart'; // Importa ProductOfert
 import 'package:virtustyler/core/colors/palette.dart';
-
-import '../../../../core/widgets/texts.dart';
+import 'package:virtustyler/core/widgets/texts.dart';
 
 class MenuPage extends StatelessWidget {
-  const MenuPage({super.key});
+  const MenuPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -27,59 +29,37 @@ class MenuPage extends StatelessWidget {
                       width: 25.h,
                       height: 1.w,
                       color: Palette.black,
-                    )
+                    ),
                   ],
                 ),
               ).marginOnly(bottom: 1.h),
-              Container(
-                height: 5.h,
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                decoration: BoxDecoration(
-                  color: Palette.grey,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 20.h,
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      margin: EdgeInsets.symmetric(horizontal: 2.w),
-                      decoration: BoxDecoration(
-                        border: index == 2
-                            ? Border.all(color: Palette.blue, width: 0.8.w)
-                            : null,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Center(
-                        child: Texts.bold(
-                          '20 %',
-                          fontSize: 14,
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ).paddingOnly(left: 5.w, right: 2.w),
-              SizedBox(
-                width: double.infinity,
-                height: 20.h * 5,
-                child: GridView.builder(
-                  padding: EdgeInsets.only(right: 5.w, left: 5.w),
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 9 / 16,
-                    crossAxisSpacing: 2.w,
-                    mainAxisSpacing: 2.h,
+              Obx(() {
+                if (homeController.filteredAssets.isEmpty) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return SizedBox(
+                  width: double.infinity,
+                  height: 45.h * homeController.filteredAssets.length,
+                  child: GridView.builder(
+                    padding: EdgeInsets.only(right: 5.w, left: 5.w),
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 9 / 11,
+                      crossAxisSpacing: 5.w,
+                      mainAxisSpacing: 4.h,
+                    ),
+                    itemCount: homeController.filteredAssets.length,
+                    itemBuilder: (context, index) {
+                      return ProductOfert(
+                        assetModel: homeController.filteredAssets[index],
+                      );
+                    },
                   ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return const ProductOfert();
-                  },
-                ),
-              ),
+                );
+              }),
             ],
           ).paddingOnly(top: 2.h, left: 5.w, right: 5.w),
         ),

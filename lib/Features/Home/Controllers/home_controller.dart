@@ -20,7 +20,6 @@ import 'package:virtustyler/core/Util/tabs.dart';
 import 'package:virtustyler/core/Util/util.dart';
 import 'package:webview_flutter/src/webview_controller.dart';
 
- 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final avatarController = Get.find<AvatarController>();
@@ -36,6 +35,10 @@ class HomeController extends GetxController
   late Rx<CategoryModel> categorySelected;
   final loadingCart = true.obs;
   final assets = <AssetModel>[].obs;
+  List<AssetModel> get filteredAssets {
+    return assets.where((p0) => p0.productModel != null).toList();
+  }
+
   final avatarPath = "".obs;
   O3DController controller = O3DController();
   final urlAvatar = "".obs;
@@ -63,14 +66,12 @@ class HomeController extends GetxController
   Future<List<CategoryModel>> getCategories() async {
     try {
       final categoriesJson = await firebase.collection("categories").get();
-
-      final list = (categoriesJson.docs as List)
+      final list = categoriesJson.docs
           .map((e) => CategoryModel.fromJson(e.data()))
           .toList();
-
       return list;
     } catch (e) {
-      Util.errorSnackBar("Error al obtener categorias.");
+      Util.errorSnackBar("Error al obtener categorías: $e");
       return [];
     }
   }
@@ -104,8 +105,8 @@ class HomeController extends GetxController
         "https://api.readyplayer.me/v1/avatars/${authController.userModel.avatarId}/equip",
         data: data,
       );
- 
-     await webViewController.reload();
+
+      await webViewController.reload();
     } catch (e) {
       print(e.toString());
     }
@@ -126,9 +127,7 @@ class HomeController extends GetxController
       );
 
       final assetsT = (response.data["data"] as List)
-          .map(
-            (e) => AssetModel.fromJson(e),
-          )
+          .map((e) => AssetModel.fromJson(e))
           .toList();
 
       for (var element in assetsT) {
@@ -137,7 +136,9 @@ class HomeController extends GetxController
           assets.add(element.copyWith(productModel: prod));
         }
       }
-    } finally {}
+    } catch (e) {
+      Util.errorSnackBar("Error al obtener activos: $e");
+    }
   }
 
   Future<void> logout() async {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:o3d/o3d.dart';
-import 'package:virtustyler/Features/Home/Models/asset_model.dart';
+import 'package:virtustyler/core/models/asset_model.dart';
 
 class AssetItem extends StatefulWidget {
   const AssetItem({
@@ -28,9 +27,8 @@ class _AssetItemState extends State<AssetItem> {
       child: Column(
         children: [
           Expanded(
-            child: O3D.network(
-              cameraControls: false,
-              src: widget.model.modelUrl,
+            child: Image.network(
+              widget.model.iconUrl,
             ),
           ),
           ElevatedButton(

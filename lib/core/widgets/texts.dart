@@ -206,7 +206,7 @@ class Texts extends StatelessWidget {
             height: height,
             fontWeight: fontWeight,
             letterSpacing: letterSpacing,
-            fontFamily: fontFamily ?? "Poppins",
+            fontFamily: fontFamily ?? "SFProDisplay",
             decoration:
                 underline ? TextDecoration.underline : TextDecoration.none,
           ),

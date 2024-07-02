@@ -3,7 +3,7 @@ import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButton extends StatefulWidget {
   const CustomButton({
     super.key,
     required this.buttonText,
@@ -16,22 +16,50 @@ class CustomButton extends StatelessWidget {
   final Function() onPressed;
   final Color? color;
   final bool active;
+
+  @override
+  State<CustomButton> createState() => _CustomButtonState();
+}
+
+class _CustomButtonState extends State<CustomButton> {
+  var pressed = false;
+  final duration = 2;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: color ?? Palette.brown,
+        backgroundColor: widget.color ?? Palette.brown,
         minimumSize: Size(double.infinity, 7.h),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.sp),
         ),
       ),
-      onPressed: active ? onPressed : null,
-      child: Texts.regular(
-        buttonText.toUpperCase(),
-        color: Palette.white,
-        fontSize: 10,
-      ),
+      onPressed: pressed
+          ? () {}
+          : widget.active
+              ? () {
+                  setState(() {
+                    pressed = true;
+                  });
+                  Future.delayed(Duration(seconds: duration)).whenComplete(
+                    () => widget.onPressed(),
+                  );
+                  Future.delayed(Duration(seconds: duration)).whenComplete(
+                    () => setState(() {
+                      pressed = false;
+                    }),
+                  );
+                }
+              : null,
+      child: pressed
+          ? const CircularProgressIndicator(
+              color: Palette.white,
+            )
+          : Texts.regular(
+              widget.buttonText.toUpperCase(),
+              color: Palette.white,
+              fontSize: 10,
+            ),
     );
   }
 }

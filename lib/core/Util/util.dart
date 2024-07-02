@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtustyler/Features/Home/Models/image_model.dart';
+import 'package:virtustyler/core/models/image_model.dart';
+import 'package:virtustyler/core/Util/const.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
@@ -79,5 +80,33 @@ class Util {
     final imageM = ImageModel.fromJson(image.data()!);
 
     return imageM.url;
+  }
+
+  static CategoryType categoryToEnum(String cat) {
+    switch (cat) {
+      case "Top":
+        return CategoryType.top;
+      case "Bottom":
+        return CategoryType.bottom;
+      case "Footwear":
+        return CategoryType.footwear;
+
+      default:
+        return CategoryType.top;
+    }
+  }
+
+  static String categoryToString(CategoryType cat) {
+    switch (cat) {
+      case CategoryType.top:
+        return "Top";
+      case CategoryType.bottom:
+        return "Bottom";
+      case CategoryType.footwear:
+        return "Footwear";
+
+      default:
+        return "Top";
+    }
   }
 }

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:virtustyler/Features/Admin/Controllers/admin_binding.dart';
+import 'package:virtustyler/Features/Admin/Views/add_product_view.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_binding.dart';
 import 'package:virtustyler/Features/Auth/Views/factura_view.dart';
 import 'package:virtustyler/Features/Auth/Views/payment_view.dart';
@@ -55,5 +57,10 @@ final getRouter = <GetPage>[
     name: "/avatar",
     page: () => const AvatarView(),
     binding: AvatarBinding(),
+  ),
+  GetPage(
+    name: "/addProduct",
+    page: () => const AddProductView(),
+    binding: AdminBinding(),
   ),
 ];

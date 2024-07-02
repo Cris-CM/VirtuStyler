@@ -1,127 +1,165 @@
+import 'package:virtustyler/core/models/product_model.dart';
+import 'package:virtustyler/core/Util/const.dart';
+import 'package:virtustyler/core/Util/util.dart';
+
 class AssetModel {
-  final String id;
   final String name;
-  final String organizationId;
-  final bool listed;
-  final bool locked;
-  final String type;
-  final bool editable;
+  final CategoryType type;
+  final String bodyType;
   final String gender;
-  final bool hasApps;
-  final List<dynamic> campaignIds;
+  final bool locked;
   final String modelUrl;
   final String iconUrl;
+  final String organizationId;
+  final ModelVersions modelVersions;
+  final String id;
+  final bool editable;
+  final bool hasApps;
+  final List<dynamic> campaignIds;
   final List<dynamic> faceBlendShapes;
+  final String hairStyle;
+  final String eyebrowStyle;
+  final String eyeStyle;
+  final String beardStyle;
+  final String glassesStyle;
   final List<dynamic> lockedCategories;
   final bool iconGlow;
   final DateTime createdAt;
   final DateTime updatedAt;
-  final ModelVersions modelVersions;
+  final ProductModel? productModel;
 
   AssetModel({
-    required this.id,
     required this.name,
-    required this.organizationId,
-    required this.listed,
-    required this.locked,
     required this.type,
-    required this.editable,
+    required this.bodyType,
     required this.gender,
-    required this.hasApps,
-    required this.campaignIds,
+    required this.locked,
     required this.modelUrl,
     required this.iconUrl,
+    required this.organizationId,
+    required this.modelVersions,
+    required this.id,
+    required this.editable,
+    required this.hasApps,
+    required this.campaignIds,
     required this.faceBlendShapes,
+    required this.hairStyle,
+    required this.eyebrowStyle,
+    required this.eyeStyle,
+    required this.beardStyle,
+    required this.glassesStyle,
     required this.lockedCategories,
     required this.iconGlow,
     required this.createdAt,
     required this.updatedAt,
-    required this.modelVersions,
+    this.productModel,
   });
 
   AssetModel copyWith({
-    String? id,
     String? name,
-    String? organizationId,
-    bool? listed,
-    bool? locked,
-    String? type,
-    bool? editable,
+    CategoryType? type,
+    String? bodyType,
     String? gender,
-    bool? hasApps,
-    List<dynamic>? campaignIds,
+    bool? locked,
     String? modelUrl,
     String? iconUrl,
+    String? organizationId,
+    ModelVersions? modelVersions,
+    String? id,
+    bool? editable,
+    bool? hasApps,
+    List<dynamic>? campaignIds,
     List<dynamic>? faceBlendShapes,
+    String? hairStyle,
+    String? eyebrowStyle,
+    String? eyeStyle,
+    String? beardStyle,
+    String? glassesStyle,
     List<dynamic>? lockedCategories,
     bool? iconGlow,
     DateTime? createdAt,
     DateTime? updatedAt,
-    ModelVersions? modelVersions,
+    ProductModel? productModel,
   }) =>
       AssetModel(
-        id: id ?? this.id,
+        productModel: productModel ?? this.productModel,
         name: name ?? this.name,
-        organizationId: organizationId ?? this.organizationId,
-        listed: listed ?? this.listed,
-        locked: locked ?? this.locked,
         type: type ?? this.type,
-        editable: editable ?? this.editable,
+        bodyType: bodyType ?? this.bodyType,
         gender: gender ?? this.gender,
-        hasApps: hasApps ?? this.hasApps,
-        campaignIds: campaignIds ?? this.campaignIds,
+        locked: locked ?? this.locked,
         modelUrl: modelUrl ?? this.modelUrl,
         iconUrl: iconUrl ?? this.iconUrl,
+        organizationId: organizationId ?? this.organizationId,
+        modelVersions: modelVersions ?? this.modelVersions,
+        id: id ?? this.id,
+        editable: editable ?? this.editable,
+        hasApps: hasApps ?? this.hasApps,
+        campaignIds: campaignIds ?? this.campaignIds,
         faceBlendShapes: faceBlendShapes ?? this.faceBlendShapes,
+        hairStyle: hairStyle ?? this.hairStyle,
+        eyebrowStyle: eyebrowStyle ?? this.eyebrowStyle,
+        eyeStyle: eyeStyle ?? this.eyeStyle,
+        beardStyle: beardStyle ?? this.beardStyle,
+        glassesStyle: glassesStyle ?? this.glassesStyle,
         lockedCategories: lockedCategories ?? this.lockedCategories,
         iconGlow: iconGlow ?? this.iconGlow,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
-        modelVersions: modelVersions ?? this.modelVersions,
       );
 
   factory AssetModel.fromJson(Map<String, dynamic> json) => AssetModel(
-        id: json["id"],
         name: json["name"],
-        organizationId: json["organizationId"],
-        listed: json["listed"],
-        locked: json["locked"],
-        type: json["type"],
-        editable: json["editable"],
+        type: Util.categoryToEnum(json["type"]),
+        bodyType: json["bodyType"],
         gender: json["gender"],
-        hasApps: json["hasApps"],
-        campaignIds: List<dynamic>.from(json["campaignIds"].map((x) => x)),
+        locked: json["locked"],
         modelUrl: json["modelUrl"],
         iconUrl: json["iconUrl"],
+        organizationId: json["organizationId"],
+        modelVersions: ModelVersions.fromJson(json["modelVersions"]),
+        id: json["id"],
+        editable: json["editable"],
+        hasApps: json["hasApps"],
+        campaignIds: List<dynamic>.from(json["campaignIds"].map((x) => x)),
         faceBlendShapes:
             List<dynamic>.from(json["faceBlendShapes"].map((x) => x)),
+        hairStyle: json["hairStyle"],
+        eyebrowStyle: json["eyebrowStyle"],
+        eyeStyle: json["eyeStyle"],
+        beardStyle: json["beardStyle"],
+        glassesStyle: json["glassesStyle"],
         lockedCategories:
             List<dynamic>.from(json["lockedCategories"].map((x) => x)),
         iconGlow: json["iconGlow"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
-        modelVersions: ModelVersions.fromJson(json["modelVersions"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
         "name": name,
-        "organizationId": organizationId,
-        "listed": listed,
-        "locked": locked,
-        "type": type,
-        "editable": editable,
+        "type": Util.categoryToString(type),
+        "bodyType": bodyType,
         "gender": gender,
-        "hasApps": hasApps,
-        "campaignIds": List<dynamic>.from(campaignIds.map((x) => x)),
+        "locked": locked,
         "modelUrl": modelUrl,
         "iconUrl": iconUrl,
+        "organizationId": organizationId,
+        "modelVersions": modelVersions.toJson(),
+        "id": id,
+        "editable": editable,
+        "hasApps": hasApps,
+        "campaignIds": List<dynamic>.from(campaignIds.map((x) => x)),
         "faceBlendShapes": List<dynamic>.from(faceBlendShapes.map((x) => x)),
+        "hairStyle": hairStyle,
+        "eyebrowStyle": eyebrowStyle,
+        "eyeStyle": eyeStyle,
+        "beardStyle": beardStyle,
+        "glassesStyle": glassesStyle,
         "lockedCategories": List<dynamic>.from(lockedCategories.map((x) => x)),
         "iconGlow": iconGlow,
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
-        "modelVersions": modelVersions.toJson(),
       };
 }
 

@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:virtustyler/Features/Auth/Models/user_model.dart';
+import 'package:virtustyler/core/models/user_model.dart';
+import 'package:virtustyler/Features/Avatar/Controllers/avatar_controller.dart';
 import 'package:virtustyler/core/Util/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -30,11 +31,11 @@ class AuthController extends GetxController {
 
       final userJson = await firebase
           .collection("users")
-          .where("id", isEqualTo: user.user!.uid)
+          .where("uid", isEqualTo: user.user!.uid)
           .get();
 
       userModel = UserModel.fromJson(userJson.docs.first.data());
-
+      Get.put(AvatarController());
       Get.toNamed("/home");
       Util.successSnackBar("Autenticado Correctamente");
     } catch (e) {
@@ -54,20 +55,24 @@ class AuthController extends GetxController {
       );
 
       final userModelT = UserModel(
-        id: user.user!.uid,
+        uid: user.user!.uid,
         name: nameRegisterController.text,
       );
 
-      await firebase.collection("users").add(
+      final userSaved = await firebase.collection("users").add(
             userModelT.toJson(),
           );
 
-      final userJson = await firebase
-          .collection("users")
-          .where("id", isEqualTo: user.user!.uid)
-          .get();
+      final nUserModel = userModelT.copyWith(id: userSaved.id);
 
-      userModel = UserModel.fromJson(userJson.docs.first.data());
+      await firebase.collection("users").doc(nUserModel.id!).set(
+            nUserModel.toJson(),
+          );
+
+      final userJson =
+          await firebase.collection("users").doc(nUserModel.id!).get();
+
+      userModel = UserModel.fromJson(userJson.data()!);
 
       Get.toNamed("/avatar");
       Util.successSnackBar("Registrado Correctamente");

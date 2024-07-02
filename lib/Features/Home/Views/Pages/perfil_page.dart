@@ -20,18 +20,15 @@ class ProfilePage extends GetView<HomeController> {
           CircleAvatar(
             radius: 30.sp,
             backgroundColor: Palette.brown,
-            child: Icon(
-              Icons.person,
-              size: 20.sp,
-              color: Palette.white,
-            ),
+            child: Image.network(
+                "https://models.readyplayer.me/${controller.authController.userModel.avatarId}.png"),
           ).marginOnly(bottom: 5.h),
-          const Texts.bold(
-            'Hola, Ericka',
+          Texts.bold(
+            'Hola, ${controller.authController.userModel.name}',
             fontSize: 14,
           ).marginOnly(bottom: 1.h),
           const Texts.regular(
-            'Bienvenida a VirtuStyler',
+            'Bienvenido a VirtuStyler',
             fontSize: 14,
           ).marginOnly(bottom: 2.h),
           const Texts.regular(

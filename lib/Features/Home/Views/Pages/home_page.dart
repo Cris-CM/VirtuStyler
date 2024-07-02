@@ -14,15 +14,14 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getProducts();
-    controller.getCategories();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Palette.background,
         body: SafeArea(
           child: RefreshIndicator(
             onRefresh: () async {
               await controller.getCategories();
-              await controller.getProducts();
+              await controller.getAssets();
             },
             child: Obx(() {
               return SingleChildScrollView(
@@ -32,11 +31,12 @@ class HomePage extends GetView<HomeController> {
                     Texts.bold(
                       'Hola! ${controller.authController.userModel.name}',
                       fontSize: 14,
+                      color: Palette.greyText,
                     ).marginOnly(bottom: 1.h),
                     const Texts.regular(
-                      'Bienvenido a VirtyStyler',
+                      'Bienvenido a VirtuStyler',
                       fontSize: 14,
-                      color: Palette.greyBlack,
+                      color: Palette.greyText,
                     ).marginOnly(bottom: 4.h),
                     Row(
                       children: [
@@ -56,10 +56,11 @@ class HomePage extends GetView<HomeController> {
                     ).marginOnly(bottom: 4.h, right: 5.w),
                     const Texts.bold(
                       'Categorias',
-                      fontSize: 14,
+                      fontSize: 13,
+                      color: Palette.greyText,
                     ).marginOnly(bottom: 2.h),
                     SizedBox(
-                      height: 4.h,
+                      height: 5.h,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: controller.categories.length,
@@ -75,13 +76,12 @@ class HomePage extends GetView<HomeController> {
                                     categoryModel: controller.categories[index],
                                     isSelected: controller.categorySelected() ==
                                         controller.categories[index],
-                                    onTap: () async{
+                                    onTap: () async {
                                       controller.categorySelected(
                                           controller.categories[index]);
 
-                                     await controller.getProducts(
-                                        categoryId:
-                                            controller.categorySelected().id,
+                                      await controller.getAssets(
+                                        type: controller.categorySelected().tag,
                                       );
                                     },
                                   );
@@ -96,28 +96,44 @@ class HomePage extends GetView<HomeController> {
                     ).marginOnly(bottom: 4.h),
                     const Texts.bold(
                       'Tendencias actualizadas',
-                      fontSize: 14,
+                      fontSize: 13,
+                      color: Palette.greyText,
                     ).marginOnly(bottom: 2.h),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 45.h * controller.products.length,
-                      child: GridView.builder(
-                        padding: EdgeInsets.only(right: 5.w),
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 9 / 16,
-                          crossAxisSpacing: 5.w,
-                          mainAxisSpacing: 4.h,
+                    Obx(() {
+                      if (controller.assets.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return SizedBox(
+                        width: double.infinity,
+                        height: 45.h *
+                            controller.assets
+                                .where((p0) => p0.productModel != null)
+                                .length,
+                        child: GridView.builder(
+                          padding: EdgeInsets.only(right: 5.w),
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 9 / 11,
+                            crossAxisSpacing: 5.w,
+                            mainAxisSpacing: 4.h,
+                          ),
+                          itemCount: controller.assets
+                              .where((p0) => p0.productModel != null)
+                              .length,
+                          itemBuilder: (context, index) {
+                            return ProductItem(
+                              assetModel: controller.assets
+                                  .where((p0) => p0.productModel != null)
+                                  .toList()[index],
+                            );
+                          },
                         ),
-                        itemCount: controller.products.length,
-                        itemBuilder: (context, index) {
-                          return ProductItem(
-                            productModel: controller.products[index],
-                          );
-                        },
-                      ),
-                    ),
+                      );
+                    }),
                   ],
                 ).paddingOnly(top: 2.h, left: 5.w),
               );

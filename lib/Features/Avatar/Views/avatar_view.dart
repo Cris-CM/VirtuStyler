@@ -29,38 +29,45 @@ class AvatarView extends GetView<AvatarController> {
                   child: Container(
                     width: double.infinity,
                     height: 60.h,
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
+                    margin: EdgeInsets.only(
+                      top: 10.h,
+                      right: 15.w,
+                      left: 15.w,
+                    ),
                     decoration: BoxDecoration(
                       border: Border.all(
                         width: 2,
                         color: Palette.blueBlack,
                       ),
-                      borderRadius: BorderRadius.circular(10.sp),
-                      image: controller.imagePerson() == null
-                          ? null
-                          : DecorationImage(
-                              image: FileImage(
-                                File(controller.imagePerson()!.path),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
                     ),
-                    child: controller.imagePerson() == null
+                    child: controller.imagePerson().isEmpty
                         ? Icon(
                             Icons.photo,
                             size: 30.sp,
                           )
-                        : null,
+                        : Image.file(
+                            File(controller.imagePerson()),
+                            fit: BoxFit.cover,
+                          ),
                   ),
                 );
               }),
             ),
+            IconButton(
+              onPressed: () {
+                controller.imagePerson("");
+              },
+              icon: Icon(
+                Icons.delete,
+                color: Palette.black,
+                size: 20.sp,
+              ),
+            ).marginOnly(bottom: 4.h),
             Obx(() {
               return CustomButton(
                 buttonText: "Generar Avatar",
                 onPressed: controller.getAvatarToPhoto,
-                active: controller.imagePerson() != null,
+                active: controller.imagePerson().isNotEmpty,
               ).marginOnly(bottom: 5.h, right: 10.w, left: 10.w);
             }),
           ],

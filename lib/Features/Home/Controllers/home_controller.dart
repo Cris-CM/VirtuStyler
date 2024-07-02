@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,18 +11,18 @@ import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
 import 'package:virtustyler/Features/Avatar/Controllers/avatar_controller.dart';
-import 'package:virtustyler/Features/Home/Models/asset_model.dart';
-import 'package:virtustyler/Features/Home/Models/category_model.dart';
-import 'package:virtustyler/Features/Home/Models/product_model.dart';
+import 'package:virtustyler/core/models/asset_model.dart';
+import 'package:virtustyler/core/models/category_model.dart';
+import 'package:virtustyler/core/models/product_model.dart';
 import 'package:virtustyler/core/Network/dio.dart';
+import 'package:virtustyler/core/Util/const.dart';
 import 'package:virtustyler/core/Util/tabs.dart';
 import 'package:virtustyler/core/Util/util.dart';
+import 'package:webview_flutter/src/webview_controller.dart';
 
-const avatarId = "6648e5294c3b647e2d5270e8";
-
+ 
 class HomeController extends GetxController
     with GetSingleTickerProviderStateMixin {
-      
   final avatarController = Get.find<AvatarController>();
 
   final authController = Get.find<AuthController>();
@@ -30,121 +32,111 @@ class HomeController extends GetxController
   final pageController = PageController();
   final pageIndex = 0.obs;
   final listSizes = <String>["S", "M", "L", "XL"];
-  final products = <ProductModel>[].obs;
   final categories = <CategoryModel>[].obs;
   late Rx<CategoryModel> categorySelected;
+  final loadingCart = true.obs;
+  final assets = <AssetModel>[].obs;
+  final avatarPath = "".obs;
+  O3DController controller = O3DController();
+  final urlAvatar = "".obs;
+  late WebViewController webViewController;
 
   @override
   Future<void> onInit() async {
+    urlAvatar(
+      "https://api.readyplayer.me/v2/avatars/${avatarController.avatarTemplateModel.id}.glb",
+    );
     tapController = TabController(
       length: tabs.length,
       vsync: this,
     );
-    await getCategories();
-    await getProducts();
-
+    categories.addAll(await getCategories());
+    categorySelected = categories.first.obs;
+    await getAssets();
     super.onInit();
   }
 
-  Future<void> getCategories() async {
+  setWebviewController(WebViewController a) {
+    webViewController = a;
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
     try {
-      categories.clear();
       final categoriesJson = await firebase.collection("categories").get();
 
       final list = (categoriesJson.docs as List)
           .map((e) => CategoryModel.fromJson(e.data()))
           .toList();
 
-      final name = list.firstWhere((element) => element.name == "Todo");
-
-      list.removeWhere((element) => element.name == "Todo");
-
-      list.insert(0, name);
-
-      categories.addAll(list);
-      categorySelected = categories.first.obs;
+      return list;
     } catch (e) {
       Util.errorSnackBar("Error al obtener categorias.");
+      return [];
     }
   }
 
-  Future<void> getProducts({String? categoryId}) async {
+  Future<ProductModel?> getProduct(String avatarId) async {
     try {
-      products.clear();
+      final productsJson = await firebase
+          .collection("products")
+          .where("avatarId", isEqualTo: avatarId)
+          .get();
 
-      late QuerySnapshot<Map<String, dynamic>> productsJson;
+      if (productsJson.docs.isEmpty) return null;
 
-      if (categoryId != null && categoryId.isNotEmpty) {
-        productsJson = await firebase
-            .collection("Products")
-            .where("categoryId", isEqualTo: categoryId)
-            .get();
-      } else {
-        productsJson = await firebase.collection("Products").get();
-      }
-
-      products.addAll(
-        productsJson.docs
-            .map(
-              (e) => ProductModel.fromJson(e.data()),
-            )
-            .toList(),
+      return ProductModel.fromJson(
+        productsJson.docs.first.data(),
       );
     } catch (e) {
       Util.errorSnackBar("Error al obtener productos.");
+      return null;
     }
-  }
-
-  final loadingCart = true.obs;
-  final assets = <AssetModel>[].obs;
-  final avatarPath = "".obs;
-  O3DController controller = O3DController();
-
-  Future<void> getPlayer() async {
-    try {
-      //    final directory = await getApplicationDocumentsDirectory();
-      //  final filePath = '${directory.path}/$avatarId.glb';
-
-      // await dio.download(
-      //   "https://models.readyplayer.me/$avatarId.glb?quality=low",
-      //   filePath,
-      // );
-
-      // avatarPath(filePath);
-    } finally {}
   }
 
   Future<void> setAsset(String assetId) async {
     try {
+      log(authController.userModel.avatarId!);
       final data = {
         "data": {"assetId": assetId}
       };
 
       await dio.put(
-        "https://api.readyplayer.me/v1/avatars/$avatarId/equip",
+        "https://api.readyplayer.me/v1/avatars/${authController.userModel.avatarId}/equip",
         data: data,
       );
-
-      // Get.offAll(const LoadingView());
+ 
+     await webViewController.reload();
     } catch (e) {
       print(e.toString());
     }
   }
 
-  Future<void> getAssets() async {
+  Future<void> getAssets({CategoryType? type}) async {
     try {
+      assets.clear();
+      final url = type != null
+          ? "https://api.readyplayer.me/v1/assets?type=${Util.categoryToString(type).toLowerCase()}"
+          : "https://api.readyplayer.me/v1/assets";
+
       final response = await dio.get(
-        "https://api.readyplayer.me/v1/assets",
+        url,
         queryParameters: {
           "organizationId": "6648dd15a6802933324ab318",
         },
       );
 
       final assetsT = (response.data["data"] as List)
-          .map((e) => AssetModel.fromJson(e))
+          .map(
+            (e) => AssetModel.fromJson(e),
+          )
           .toList();
 
-      assets(assetsT);
+      for (var element in assetsT) {
+        if (!element.iconUrl.contains(".glb")) {
+          final prod = await getProduct(element.id);
+          assets.add(element.copyWith(productModel: prod));
+        }
+      }
     } finally {}
   }
 

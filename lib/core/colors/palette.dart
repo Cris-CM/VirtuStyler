@@ -14,9 +14,11 @@ class Palette {
   static const white = Colors.white;
   static const darkGreen = Color(0XFF4E8D7C);
   static const green = Colors.green;
-  static const red = Colors.red;
-
+  static const red = Colors.red; 
   static const grey = Color(0xffF5F5F5);
   static const greyBlack = Color(0xff8F959E);
-  static const background = Color(0xffF6F2ED);
+
+  static const background = Color(0xffF7F6F4);
+  static const greyContainer = Color(0xffCFCFCF);
+  static const greyText = Color(0xff343A40);
 }

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
 import 'package:virtustyler/Features/Home/Widgets/asset_item.dart';
+import 'package:virtustyler/core/widgets/custom_button.dart';
 
 class CartPage extends GetView<HomeController> {
   const CartPage({super.key});
@@ -11,13 +14,18 @@ class CartPage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          flex: 5,
-          child: O3D.network(
-            src:
-                "https://api.readyplayer.me/v2/avatars/${controller.avatarController.avatarTemplateModel.id}.glb?preview=true",
-          ),
-        ),
+        Obx(() {
+          log(controller.urlAvatar());
+          return Expanded(
+            flex: 5,
+            child: O3D.network(
+              src: controller.urlAvatar(),
+              onWebViewCreated: (value) {
+                controller.setWebviewController(value);
+              },
+            ),
+          );
+        }),
         Expanded(
           child: ListView.builder(
             scrollDirection: Axis.horizontal,

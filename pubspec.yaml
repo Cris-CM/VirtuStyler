@@ -101,6 +101,9 @@ flutter:
     - family: Alegreya
       fonts:
         - asset: assets/fonts/Alegreya-Regular.ttf 
+    - family: SFProDisplay
+      fonts:
+        - asset: assets/fonts/SFPRODISPLAYREGULAR.otf 
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

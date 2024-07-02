@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:o3d/o3d.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
-import 'package:virtustyler/Features/Home/Models/product_model.dart';
+import 'package:virtustyler/core/models/asset_model.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
-import 'package:virtustyler/core/Util/util.dart';
 
 class ProductView extends GetView<HomeController> {
-  const ProductView(this.productModel, {super.key});
-  final ProductModel productModel;
+  const ProductView(this.assetModel, {super.key});
+  final AssetModel assetModel;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,7 @@ class ProductView extends GetView<HomeController> {
       bottomNavigationBar: CustomButton(
         buttonText: "Comprar",
         onPressed: () async {
-          await controller.makePayment(productModel);
-         
+          //  await controller.makePayment(productModel);
         },
       ).marginSymmetric(vertical: 3.h, horizontal: 10.w),
       backgroundColor: Palette.background,
@@ -39,25 +38,18 @@ class ProductView extends GetView<HomeController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                future: Util.getImage(productModel.imageId),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Align(
-                      alignment: Alignment.center,
-                      child: Image.network(
-                        snapshot.data!,
-                        alignment: Alignment.center,
-                        fit: BoxFit.cover,
-                        height: 40.h,
-                      ),
-                    );
-                  }
-                  return const SizedBox.shrink();
-                },
-              ),
+              Align(
+                  alignment: Alignment.center,
+                  child: assetModel.iconUrl.contains(".glb")
+                      ? O3D.network(
+                          src: assetModel.modelUrl,
+                          loading: Loading.lazy,
+                          autoRotate: false,
+                          cameraControls: false,
+                        )
+                      : Image.network(assetModel.iconUrl)),
               Texts.regular(
-                productModel.subName,
+                assetModel.productModel!.subName,
                 color: Palette.greyBlack,
                 fontSize: 8,
               ).marginOnly(bottom: 1.h),
@@ -65,11 +57,11 @@ class ProductView extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Texts.bold(
-                    productModel.name,
+                    assetModel.productModel!.name,
                     fontSize: 14,
                   ),
                   Texts.bold(
-                    "S/. ${productModel.price}",
+                    "S/. ${assetModel.productModel!.price}",
                     fontSize: 14,
                   ),
                 ],

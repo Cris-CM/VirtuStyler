@@ -110,8 +110,7 @@ class HomeView extends GetView<HomeController> {
               IconAndText(
                 text: 'Compras y devoluciones',
                 iconData: Icons.shopping_bag_outlined,
-                onTap: () {
-                },
+                onTap: () {},
               ).marginOnly(bottom: 1.h),
               IconAndText(
                 text: 'Forma de pago',
@@ -124,6 +123,13 @@ class HomeView extends GetView<HomeController> {
                 text: 'Configuracion',
                 iconData: Icons.settings,
                 onTap: () {},
+              ),
+              IconAndText(
+                text: 'Agregar producto',
+                iconData: Icons.add,
+                onTap: (){
+                  Get.toNamed("/addProduct");
+                },
               ),
               const Spacer(),
               IconAndText(

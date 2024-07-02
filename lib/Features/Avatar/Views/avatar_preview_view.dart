@@ -18,7 +18,7 @@ class AvatarPreviewView extends GetView<AvatarController> {
           Expanded(
             child: O3D.network(
               src:
-                  "https://api.readyplayer.me/v2/avatars/${controller.avatarTemplateModel.id}.glb?preview=true",
+                  "https://api.readyplayer.me/v2/avatars/${controller.avatarTemplateModel.id}.glb",
             ),
           ),
           CustomButton(

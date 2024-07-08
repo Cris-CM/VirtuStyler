@@ -29,12 +29,12 @@ class CartPage extends GetView<HomeController> {
         Expanded(
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: controller.assets.length,
+            itemCount: controller.cartAssets.length,
             itemBuilder: (context, index) {
               return AssetItem(
-                model: controller.assets[index],
+                model: controller.cartAssets[index],
                 onTap: () {
-                  controller.setAsset(controller.assets[index].id);
+                  controller.setAsset(controller.cartAssets[index].id);
                 },
               );
             },

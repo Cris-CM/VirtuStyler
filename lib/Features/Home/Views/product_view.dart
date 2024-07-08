@@ -1,26 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
 import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
+import 'package:virtustyler/core/Util/util.dart';
 import 'package:virtustyler/core/models/asset_model.dart';
 import 'package:virtustyler/core/colors/palette.dart';
 import 'package:virtustyler/core/widgets/custom_button.dart';
 import 'package:virtustyler/core/widgets/texts.dart';
 
 class ProductView extends GetView<HomeController> {
-  const ProductView(this.assetModel, {super.key});
+  const ProductView(this.assetModel, this.descount, {super.key});
   final AssetModel assetModel;
-
+  final double descount;
   @override
   Widget build(BuildContext context) {
+    double discountedPrice = descount == 0
+        ? assetModel.productModel!.price.toDouble()
+        : assetModel.productModel!.price * (descount / 100); // 20% de descuento
+
     return Scaffold(
-      bottomNavigationBar: CustomButton(
-        buttonText: "Comprar",
-        onPressed: () async {
-          //  await controller.makePayment(productModel);
-        },
-      ).marginSymmetric(vertical: 3.h, horizontal: 10.w),
+      bottomNavigationBar: Row(
+        children: [
+          IconButton.filled(
+            onPressed: () {
+              if (controller.cartAssets.contains(assetModel)) {
+                Util.errorSnackBar("Producto ya se encuentra agregado");
+                return;
+              }
+
+              controller.cartAssets.add(assetModel);
+              Util.successSnackBar("Producto agregado correctamente");
+            },
+            icon: Icon(
+              Icons.add_shopping_cart,
+              size: 20.sp,
+            ),
+          ).marginOnly(right: 3.w),
+          Expanded(
+            child: CustomButton(
+              buttonText: "Comprar",
+              onPressed: () async {
+                await controller.makePayment(assetModel, discountedPrice);
+              },
+            ),
+          ),
+        ],
+      ).marginSymmetric(vertical: 3.h, horizontal: 4.w),
       backgroundColor: Palette.background,
       appBar: AppBar(
         backgroundColor: Palette.background,
@@ -61,7 +88,7 @@ class ProductView extends GetView<HomeController> {
                     fontSize: 14,
                   ),
                   Texts.bold(
-                    "S/. ${assetModel.productModel!.price}",
+                    "S/. ${discountedPrice.round()}",
                     fontSize: 14,
                   ),
                 ],

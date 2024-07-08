@@ -40,7 +40,10 @@ class HomeView extends GetView<HomeController> {
         ),
       ),
       bottomNavigationBar: ConvexAppBar(
-        controller: controller.tapController,
+        controller: TabController(
+      length: tabs.length,
+      vsync: controller,
+    ),
         backgroundColor: Palette.background,
         color: Palette.greyBlack,
         activeColor: Palette.blackOpacity,
@@ -124,6 +127,7 @@ class HomeView extends GetView<HomeController> {
                 iconData: Icons.settings,
                 onTap: () {},
               ),
+            //  if(controller.authController.userModel.isAdmin)
               IconAndText(
                 text: 'Agregar producto',
                 iconData: Icons.add,

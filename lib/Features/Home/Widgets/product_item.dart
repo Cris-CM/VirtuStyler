@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductView(assetModel));
+        Get.to(() => ProductView(assetModel, 0));
       },
       child: Container(
         decoration: BoxDecoration(

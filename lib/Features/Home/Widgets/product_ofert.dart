@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:virtustyler/core/colors/palette.dart';
@@ -13,12 +15,15 @@ class ProductOfert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int descount = Random().nextInt(10);
+
     double originalPrice = assetModel.productModel!.price.toDouble();
-    double discountedPrice = originalPrice * 0.8; // 20% de descuento
+    double discountedPrice =
+        originalPrice * (descount / 100); // 20% de descuento
 
     return GestureDetector(
       onTap: () {
-        Get.to(() => ProductView(assetModel));
+        Get.to(() => ProductView(assetModel, descount.toDouble()));
       },
       child: Container(
         decoration: BoxDecoration(
@@ -42,6 +47,10 @@ class ProductOfert extends StatelessWidget {
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 1.h,
+                    horizontal: 3.w,
+                  ),
                   margin: EdgeInsets.all(2.sp),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -55,7 +64,7 @@ class ProductOfert extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Texts(
-                    '20%',
+                    '${100 - descount}%',
                     fontSize: 6.sp,
                     fontWeight: FontWeight.bold,
                     color: Palette.white,

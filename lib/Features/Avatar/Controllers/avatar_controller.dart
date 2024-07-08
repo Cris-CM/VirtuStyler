@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -27,11 +28,28 @@ class AvatarController extends GetxController {
   @override
   void onInit() async {
     await createAnonymousUser();
+    await checkAuthAvatar();
     super.onInit();
   }
 
   checkAuthAvatar() async {
     if (authController.userModel.avatarId == null) return;
+
+    try {
+      final saveResponse = await dio.put(
+        "https://api.readyplayer.me/v2/avatars/${authController.userModel.avatarId}",
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${anonymousUser.token}",
+          },
+        ),
+      );
+
+      avatarTemplateModel =
+          AvatarTemplateModel.fromJson(saveResponse.data["data"]);
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   createAnonymousUser() async {
@@ -80,7 +98,7 @@ class AvatarController extends GetxController {
       ),
     );
 
-   final saveResponse = await dio.put(
+    final saveResponse = await dio.put(
       "https://api.readyplayer.me/v2/avatars/${response.data["data"]["id"]}",
       data: data,
       options: Options(
@@ -90,7 +108,8 @@ class AvatarController extends GetxController {
       ),
     );
 
-    avatarTemplateModel = AvatarTemplateModel.fromJson(saveResponse.data["data"]);
+    avatarTemplateModel =
+        AvatarTemplateModel.fromJson(saveResponse.data["data"]);
     await saveAvatarId();
 
     Get.to(() => const AvatarPreviewView());

@@ -21,13 +21,12 @@ import 'package:virtustyler/core/Util/util.dart';
 import 'package:webview_flutter/src/webview_controller.dart';
 
 class HomeController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+    with GetTickerProviderStateMixin {
   final avatarController = Get.find<AvatarController>();
 
   final authController = Get.find<AuthController>();
   final firebase = FirebaseFirestore.instance;
-  late TabController tapController;
-  DrawerControl drawerControl = DrawerControl();
+   DrawerControl drawerControl = DrawerControl();
   final pageController = PageController();
   final pageIndex = 0.obs;
   final listSizes = <String>["S", "M", "L", "XL"];
@@ -35,6 +34,8 @@ class HomeController extends GetxController
   late Rx<CategoryModel> categorySelected;
   final loadingCart = true.obs;
   final assets = <AssetModel>[].obs;
+  final cartAssets = <AssetModel>[].obs;
+
   List<AssetModel> get filteredAssets {
     return assets.where((p0) => p0.productModel != null).toList();
   }
@@ -49,11 +50,7 @@ class HomeController extends GetxController
     urlAvatar(
       "https://api.readyplayer.me/v2/avatars/${avatarController.avatarTemplateModel.id}.glb",
     );
-    tapController = TabController(
-      length: tabs.length,
-      vsync: this,
-    );
-    categories.addAll(await getCategories());
+     categories.addAll(await getCategories());
     categorySelected = categories.first.obs;
     await getAssets();
     super.onInit();
@@ -142,16 +139,16 @@ class HomeController extends GetxController
   }
 
   Future<void> logout() async {
-    Get.toNamed("/login");
+    Get.offAllNamed("/login");
     await FirebaseAuth.instance.signOut();
   }
 
-  createPaymentIntent(String amount) async {
+  createPaymentIntent(double amount) async {
     try {
       Map<String, dynamic> body = {
         // Amount must be in smaller unit of currency
         // so we have multiply it by 100
-        'amount': ((int.parse(amount)) * 100).toString(),
+        'amount': ((amount.round()) * 100).toString(),
         'currency': "USD",
         'payment_method_types[]': 'card',
       };
@@ -177,14 +174,14 @@ class HomeController extends GetxController
 
   Map<String, dynamic>? paymentIntent;
 
-  displayPaymentSheet(ProductModel productModel) async {
+  displayPaymentSheet(AssetModel productModel) async {
     try {
       // "Display payment sheet";
       await Stripe.instance.presentPaymentSheet();
 
       paymentIntent = null;
 
-      Get.toNamed("/factura", arguments: productModel);
+      Get.toNamed("/factura", arguments: productModel.productModel);
     } on StripeException catch (e) {
       // If any error comes during payment
       // so payment will be cancelled
@@ -195,10 +192,12 @@ class HomeController extends GetxController
     }
   }
 
-  Future<void> makePayment(ProductModel productModel) async {
+  Future<void> makePayment(AssetModel assetModel, double descount) async {
     try {
       // Create payment intent data
-      paymentIntent = await createPaymentIntent(productModel.price.toString());
+      paymentIntent = await createPaymentIntent(descount == 0.0
+          ? assetModel.productModel!.price.toDouble()
+          : descount);
       // initialise the payment sheet setup
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
@@ -217,7 +216,7 @@ class HomeController extends GetxController
         ),
       );
       //Display payment sheet
-      displayPaymentSheet(productModel);
+      displayPaymentSheet(assetModel);
     } catch (e) {
       print("exception $e");
 

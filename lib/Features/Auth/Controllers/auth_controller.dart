@@ -57,6 +57,7 @@ class AuthController extends GetxController {
       final userModelT = UserModel(
         uid: user.user!.uid,
         name: nameRegisterController.text,
+        isAdmin: false,
       );
 
       final userSaved = await firebase.collection("users").add(

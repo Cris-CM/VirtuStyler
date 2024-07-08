@@ -3,12 +3,14 @@ class UserModel {
   final String uid;
   final String name;
   final String? avatarId;
+  final bool isAdmin;
 
   UserModel({
-      this.id,
+    this.id,
     required this.uid,
     required this.name,
-      this.avatarId,
+    required this.isAdmin,
+    this.avatarId,
   });
 
   UserModel copyWith({
@@ -16,12 +18,14 @@ class UserModel {
     String? uid,
     String? name,
     String? avatarId,
+    bool? isAdmin,
   }) =>
       UserModel(
         id: id ?? this.id,
         uid: uid ?? this.uid,
         name: name ?? this.name,
         avatarId: avatarId ?? this.avatarId,
+        isAdmin: isAdmin ?? this.isAdmin,
       );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -29,6 +33,7 @@ class UserModel {
         uid: json["uid"],
         name: json["name"],
         avatarId: json["avatarId"],
+        isAdmin: json["isAdmin"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,5 +41,6 @@ class UserModel {
         "uid": uid,
         "name": name,
         "avatarId": avatarId,
+        "isAdmin":isAdmin,
       };
 }

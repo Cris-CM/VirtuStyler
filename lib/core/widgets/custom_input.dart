@@ -7,15 +7,16 @@ class CustomInput extends StatefulWidget {
   const CustomInput({
     super.key,
     required this.hinttext,
-    this.controller, 
+    this.controller,
     this.obscureText = false,
+    this.keyboardType,
   });
 
   final String hinttext;
   final TextEditingController? controller;
- 
-  final bool obscureText;
 
+  final bool obscureText;
+  final TextInputType? keyboardType;
   @override
   State<StatefulWidget> createState() => _CustomInputState();
 }
@@ -39,8 +40,8 @@ class _CustomInputState extends State<CustomInput> {
       child: TextFormField(
         controller: widget.controller,
         obscureText: widget.obscureText,
+        keyboardType: widget.keyboardType,
         decoration: InputDecoration(
-         
           hintText: widget.hinttext,
           border: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent),
@@ -59,7 +60,7 @@ class _CustomInputState extends State<CustomInput> {
           hintStyle: const TextStyle(
             color: Palette.whiteOpacity,
             fontSize: 16,
-           ),
+          ),
         ),
       ),
     );

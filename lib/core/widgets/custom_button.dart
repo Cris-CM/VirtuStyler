@@ -23,13 +23,13 @@ class CustomButton extends StatefulWidget {
 
 class _CustomButtonState extends State<CustomButton> {
   var pressed = false;
-  final duration = 2;
+  final duration = 500;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: widget.color ?? Palette.brown,
-        minimumSize: Size(double.infinity, 7.h),
+        minimumSize: Size(100.w, 7.h),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.sp),
         ),
@@ -41,10 +41,10 @@ class _CustomButtonState extends State<CustomButton> {
                   setState(() {
                     pressed = true;
                   });
-                  Future.delayed(Duration(seconds: duration)).whenComplete(
+                  Future.delayed(Duration(milliseconds: duration)).whenComplete(
                     () => widget.onPressed(),
                   );
-                  Future.delayed(Duration(seconds: duration)).whenComplete(
+                  Future.delayed(Duration(milliseconds: duration)).whenComplete(
                     () => setState(() {
                       pressed = false;
                     }),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 import 'package:virtustyler/core/models/asset_model.dart';
+import 'package:virtustyler/core/widgets/custom_button.dart';
 
 class AssetItem extends StatefulWidget {
   const AssetItem({
@@ -17,13 +19,12 @@ class _AssetItemState extends State<AssetItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: 40.w,
       margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.grey.shade400,
         borderRadius: BorderRadius.circular(20),
       ),
-      width: 100,
-      height: 100,
       child: Column(
         children: [
           Expanded(
@@ -31,10 +32,10 @@ class _AssetItemState extends State<AssetItem> {
               widget.model.iconUrl,
             ),
           ),
-          ElevatedButton(
+          CustomButton(
+            buttonText: "Equipar",
             onPressed: widget.onTap,
-            child: const Text("Equipar"),
-          ),
+          )
         ],
       ),
     );

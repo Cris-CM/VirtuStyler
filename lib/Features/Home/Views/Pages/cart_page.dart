@@ -1,11 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:o3d/o3d.dart';
+import 'package:sizer/sizer.dart';
 import 'package:virtustyler/Features/Home/Controllers/home_controller.dart';
 import 'package:virtustyler/Features/Home/Widgets/asset_item.dart';
-import 'package:virtustyler/core/widgets/custom_button.dart';
 
 class CartPage extends GetView<HomeController> {
   const CartPage({super.key});
@@ -17,7 +18,6 @@ class CartPage extends GetView<HomeController> {
         Obx(() {
           log(controller.urlAvatar());
           return Expanded(
-            flex: 5,
             child: O3D.network(
               src: controller.urlAvatar(),
               onWebViewCreated: (value) {
@@ -26,7 +26,8 @@ class CartPage extends GetView<HomeController> {
             ),
           );
         }),
-        Expanded(
+        SizedBox(
+          height: 30.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: controller.cartAssets.length,

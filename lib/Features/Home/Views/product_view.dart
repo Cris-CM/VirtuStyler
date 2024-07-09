@@ -69,7 +69,7 @@ class ProductView extends GetView<HomeController> {
                   alignment: Alignment.center,
                   child: assetModel.iconUrl.contains(".glb")
                       ? O3D.network(
-                          src: assetModel.modelUrl,
+                          src: assetModel.iconUrl,
                           loading: Loading.lazy,
                           autoRotate: false,
                           cameraControls: false,

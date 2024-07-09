@@ -20,13 +20,12 @@ import 'package:virtustyler/core/Util/tabs.dart';
 import 'package:virtustyler/core/Util/util.dart';
 import 'package:webview_flutter/src/webview_controller.dart';
 
-class HomeController extends GetxController
-    with GetTickerProviderStateMixin {
+class HomeController extends GetxController with GetTickerProviderStateMixin {
   final avatarController = Get.find<AvatarController>();
 
   final authController = Get.find<AuthController>();
   final firebase = FirebaseFirestore.instance;
-   DrawerControl drawerControl = DrawerControl();
+  DrawerControl drawerControl = DrawerControl();
   final pageController = PageController();
   final pageIndex = 0.obs;
   final listSizes = <String>["S", "M", "L", "XL"];
@@ -50,7 +49,7 @@ class HomeController extends GetxController
     urlAvatar(
       "https://api.readyplayer.me/v2/avatars/${avatarController.avatarTemplateModel.id}.glb",
     );
-     categories.addAll(await getCategories());
+    categories.addAll(await getCategories());
     categorySelected = categories.first.obs;
     await getAssets();
     super.onInit();

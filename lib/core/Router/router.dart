@@ -46,12 +46,6 @@ final getRouter = <GetPage>[
   GetPage(
     name: "/factura",
     page: () => const PagosView(),
-    binding: AuthBinding(),
-  ),
-  GetPage(
-    name: "/factura",
-    page: () => const PagosView(),
-    binding: AuthBinding(),
   ),
   GetPage(
     name: "/avatar",

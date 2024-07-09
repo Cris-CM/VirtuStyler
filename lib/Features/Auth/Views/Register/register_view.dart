@@ -40,7 +40,7 @@ class RegisterView extends GetView<AuthController> {
                   vertical: 4.h,
                 ),
                 width: double.infinity,
-                height: 82.h,
+                height: 84.h,
                 decoration: BoxDecoration(
                   color: Palette.whiteGrey,
                   boxShadow: [

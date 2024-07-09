@@ -5,8 +5,12 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:virtustyler/Features/Auth/Controllers/auth_controller.dart';
 import 'package:virtustyler/core/models/user_model.dart';
 import 'package:virtustyler/core/models/anonymous_user_model.dart';
@@ -67,7 +71,21 @@ class AvatarController extends GetxController {
   }
 
   getPhotoPerson() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.camera);
+    // if (kDebugMode) {
+    //   final byteData = await rootBundle.load('assets/images/cesar.jpeg');
+
+    //   final file = File('${(await getTemporaryDirectory()).path}/cesar.jpeg');
+    //   await file.writeAsBytes(byteData.buffer
+    //       .asUint8List(byteData.offsetInBytes, byteData.lengthInBytes));
+
+    //   imagePerson(file.path);
+    //   imagePerson.refresh();
+    //   return;
+    // }
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      preferredCameraDevice: CameraDevice.front,
+    );
 
     if (image == null) return;
 
@@ -87,6 +105,8 @@ class AvatarController extends GetxController {
         "userId": anonymousUser.id,
       }
     };
+
+    dio.options.headers["Authorization"] = "Bearer ${anonymousUser.token}";
 
     final response = await dio.post(
       "https://api.readyplayer.me/v2/avatars",
